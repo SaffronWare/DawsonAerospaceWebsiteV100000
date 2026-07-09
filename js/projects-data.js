@@ -1,0 +1,197 @@
+/* =========================================================
+   DAC — Seed project data
+   This array ships with the site so the page is populated
+   before any admin-added projects exist. Projects added via
+   admin.html are merged in at runtime from localStorage.
+   Schema:
+   {
+     id, title, slug, description, longDescription,
+     imageUrl, gallery[], status, tags[],
+     category: "current" | "future",
+     division: "Avionics" | "Formula FRC" | "Rocketry" | "General",
+     createdAt, updatedAt
+   }
+   ========================================================= */
+
+const DAC_SEED_PROJECTS = [
+  {
+    id: "seed-rc-plane",
+    title: "RC Plane",
+    slug: "rc-plane",
+    description: "Fixed-wing RC test platform used to validate flight-control and telemetry hardware before it flies on larger airframes.",
+    longDescription: "A fixed-wing radio-controlled test platform built to give the Avionics division a low-cost, low-risk airframe for validating flight computers, sensor packages, and telemetry links before committing them to larger or more expensive builds.",
+    imageUrl: "assets/uploads/projects/rc-plane.jpg",
+    gallery: [],
+    status: "Active",
+    tags: ["CAD", "Electronics", "Testing"],
+    category: "current",
+    division: "Avionics",
+    createdAt: "2026-07-09T00:00:00.000Z",
+    updatedAt: "2026-07-09T00:00:00.000Z"
+  },
+  {
+    id: "seed-flight-computer",
+    title: "Falcon Flight Computer",
+    slug: "falcon-flight-computer",
+    description: "Custom dual-redundant flight computer with onboard IMU, barometric altimeter, and SD data logging for competition rockets.",
+    longDescription: "A custom PCB flight computer built around dual redundant microcontrollers, an IMU, barometric altimeter, and onboard data logging, designed for reliable apogee detection and recovery deployment in competition rocketry.",
+    imageUrl: "",
+    gallery: [],
+    status: "Active",
+    tags: ["PCB Design", "Embedded C", "Sensors", "Telemetry"],
+    category: "current",
+    division: "Avionics",
+    createdAt: "2026-05-12T00:00:00.000Z",
+    updatedAt: "2026-06-20T00:00:00.000Z"
+  },
+  {
+    id: "seed-ground-station",
+    title: "Ground Station Telemetry Suite",
+    slug: "ground-station-telemetry-suite",
+    description: "Real-time radio ground station and dashboard for tracking altitude, velocity, and vehicle health during launches and test flights.",
+    longDescription: "A radio ground station paired with a live dashboard, giving the range safety officer and team real-time visibility into altitude, velocity, orientation, and subsystem health during launches and test flights.",
+    imageUrl: "",
+    gallery: [],
+    status: "Active",
+    tags: ["RF", "Software", "Data Logging"],
+    category: "current",
+    division: "Avionics",
+    createdAt: "2026-04-02T00:00:00.000Z",
+    updatedAt: "2026-06-01T00:00:00.000Z"
+  },
+  {
+    id: "seed-frc-drivetrain",
+    title: "Swerve Drivetrain Platform",
+    slug: "swerve-drivetrain-platform",
+    description: "In-house swerve module design for competition robots, built for serviceability and rapid iteration between events.",
+    longDescription: "A ground-up swerve drivetrain module designed for the Formula FRC division's competition robots, prioritizing field-serviceability, repeatable manufacturing, and rapid iteration between competition events.",
+    imageUrl: "",
+    gallery: [],
+    status: "Active",
+    tags: ["CAD", "Manufacturing", "Controls"],
+    category: "current",
+    division: "Formula FRC",
+    createdAt: "2026-03-18T00:00:00.000Z",
+    updatedAt: "2026-06-15T00:00:00.000Z"
+  },
+  {
+    id: "seed-frc-arm",
+    title: "Competition Manipulator Arm",
+    slug: "competition-manipulator-arm",
+    description: "A multi-jointed manipulator arm designed and manufactured for this season's game piece handling and scoring routines.",
+    longDescription: "A multi-jointed manipulator arm engineered for this season's competition, covering mechanism design, motion control tuning, and manufacturing for reliable game-piece handling under match conditions.",
+    imageUrl: "",
+    gallery: [],
+    status: "Active",
+    tags: ["Mechanical Design", "Controls", "Manufacturing"],
+    category: "current",
+    division: "Formula FRC",
+    createdAt: "2026-02-22T00:00:00.000Z",
+    updatedAt: "2026-05-30T00:00:00.000Z"
+  },
+  {
+    id: "seed-rocket-airframe",
+    title: "Aphelion Mk. II Airframe",
+    slug: "aphelion-mk-ii-airframe",
+    description: "Carbon-fiber competition airframe with dual deployment recovery, currently in structural and aerodynamic test.",
+    longDescription: "The second-generation Aphelion competition airframe, built from filament-wound carbon fiber with a dual-deployment recovery system, currently undergoing structural load testing and aerodynamic simulation ahead of its next launch window.",
+    imageUrl: "",
+    gallery: [],
+    status: "Active",
+    tags: ["Aerodynamics", "Composites", "Recovery Systems"],
+    category: "current",
+    division: "Rocketry",
+    createdAt: "2026-01-10T00:00:00.000Z",
+    updatedAt: "2026-06-25T00:00:00.000Z"
+  },
+  {
+    id: "seed-rocket-sim",
+    title: "Trajectory Simulation Toolkit",
+    slug: "trajectory-simulation-toolkit",
+    description: "In-house 6-degree-of-freedom simulation environment used to model ascent, coast, and recovery for every launch vehicle.",
+    longDescription: "An in-house six-degree-of-freedom simulation environment used to model ascent, coast, and recovery phases for every launch vehicle, feeding directly into airframe and recovery system design decisions.",
+    imageUrl: "",
+    gallery: [],
+    status: "Active",
+    tags: ["Simulation", "Python", "Aerodynamics"],
+    category: "current",
+    division: "Rocketry",
+    createdAt: "2026-02-05T00:00:00.000Z",
+    updatedAt: "2026-05-18T00:00:00.000Z"
+  },
+  {
+    id: "seed-outreach-site",
+    title: "Public Outreach & STEM Kit Program",
+    slug: "public-outreach-stem-kit-program",
+    description: "Low-cost build kits and workshop material used to introduce local students to hands-on aerospace and robotics engineering.",
+    longDescription: "A set of low-cost build kits and workshop curricula developed by the club to introduce local secondary school students to hands-on aerospace and robotics engineering.",
+    imageUrl: "",
+    gallery: [],
+    status: "Active",
+    tags: ["Outreach", "Curriculum Design"],
+    category: "current",
+    division: "General",
+    createdAt: "2026-03-01T00:00:00.000Z",
+    updatedAt: "2026-04-10T00:00:00.000Z"
+  },
+  {
+    id: "seed-future-hybrid-motor",
+    title: "Hybrid Motor Test Stand",
+    slug: "hybrid-motor-test-stand",
+    description: "A static test stand for characterizing thrust curves of small hybrid motors within educational and regulatory limits.",
+    longDescription: "A static test stand under design for safely characterizing thrust curves of small hybrid rocket motors, developed strictly within educational and regulatory limits and reviewed by the club's safety officer.",
+    imageUrl: "",
+    gallery: [],
+    status: "Planned",
+    tags: ["Propulsion Research", "Test Stand", "Instrumentation"],
+    category: "future",
+    division: "Rocketry",
+    createdAt: "2026-06-01T00:00:00.000Z",
+    updatedAt: "2026-06-01T00:00:00.000Z"
+  },
+  {
+    id: "seed-future-vision",
+    title: "Onboard Vision & Object Tracking",
+    slug: "onboard-vision-object-tracking",
+    description: "Camera-based onboard tracking module planned for next season's competition robot, targeting real-time game-piece detection.",
+    longDescription: "A planned camera-based onboard tracking module for next season's competition robot, targeting real-time game-piece detection to feed the drivetrain and manipulator control loops.",
+    imageUrl: "",
+    gallery: [],
+    status: "Planned",
+    tags: ["Computer Vision", "Embedded Systems"],
+    category: "future",
+    division: "Formula FRC",
+    createdAt: "2026-06-10T00:00:00.000Z",
+    updatedAt: "2026-06-10T00:00:00.000Z"
+  },
+  {
+    id: "seed-future-cansat",
+    title: "CanSat Payload Program",
+    slug: "cansat-payload-program",
+    description: "A soda-can-sized payload competition entry planned to give newer Avionics members a compact, end-to-end systems project.",
+    longDescription: "A planned soda-can-sized payload competition entry, giving newer Avionics division members an end-to-end systems project spanning sensor selection, embedded firmware, and post-flight data analysis.",
+    imageUrl: "",
+    gallery: [],
+    status: "Planned",
+    tags: ["Embedded Systems", "Sensors", "Data Analysis"],
+    category: "future",
+    division: "Avionics",
+    createdAt: "2026-06-18T00:00:00.000Z",
+    updatedAt: "2026-06-18T00:00:00.000Z"
+  },
+  {
+    id: "seed-future-recovery",
+    title: "Autonomous Recovery Beacon",
+    slug: "autonomous-recovery-beacon",
+    description: "GPS-linked recovery beacon planned to speed up post-launch rocket recovery across large or wooded launch fields.",
+    longDescription: "A planned GPS-linked recovery beacon intended to speed up post-launch recovery of airframes across large or wooded launch fields, reporting live coordinates to the ground station.",
+    imageUrl: "",
+    gallery: [],
+    status: "Planned",
+    tags: ["GPS", "RF", "Recovery Systems"],
+    category: "future",
+    division: "Rocketry",
+    createdAt: "2026-06-22T00:00:00.000Z",
+    updatedAt: "2026-06-22T00:00:00.000Z"
+  }
+];

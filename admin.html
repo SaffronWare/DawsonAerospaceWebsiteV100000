@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Admin — Add Project — DAC</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="DAC logo">
+      <span class="brand-text">DAC<span>Delta Aerospace Club</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html#who-we-are">Who We Are</a>
+      <a href="index.html#divisions">Divisions</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#partners">Partners</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M4.5 12H1.9M22.1 12h-2.6M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.5 14.2A8.5 8.5 0 119.8 3.5a6.8 6.8 0 1010.7 10.7z"/></svg>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html#who-we-are">Who We Are</a>
+    <a href="index.html#divisions">Divisions</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#partners">Partners</a>
+    <a href="index.html#donate">Donate</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Team Admin</div>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Add a project</h1>
+    <p style="max-width:560px;">Projects added here are saved in this browser and appear immediately on the public Current or Future Projects sections, filterable by division.</p>
+  </div>
+</div>
+
+<section class="admin-shell">
+  <div class="wrap admin-grid">
+
+    <form class="admin-panel bracket" id="project-form">
+      <div class="tick-tr"></div><div class="tick-bl"></div>
+
+      <div id="admin-notice" class="notice" style="display:none;"></div>
+
+      <div class="form-row">
+        <label for="p-title">Title *</label>
+        <input id="p-title" name="title" type="text" required placeholder="e.g. RC Plane">
+      </div>
+
+      <div class="form-row">
+        <label for="p-slug">Slug</label>
+        <input id="p-slug" name="slug" type="text" placeholder="auto-generated from title">
+      </div>
+
+      <div class="form-row">
+        <label for="p-description">Short description *</label>
+        <textarea id="p-description" name="description" required placeholder="One or two sentences for the project card." style="min-height:80px;"></textarea>
+      </div>
+
+      <div class="form-row">
+        <label for="p-longDescription">Long description</label>
+        <textarea id="p-longDescription" name="longDescription" placeholder="Optional — more detail for a future project detail page."></textarea>
+      </div>
+
+      <div class="form-row two">
+        <div>
+          <label for="p-division">Division *</label>
+          <select id="p-division" name="division" required>
+            <option value="" disabled selected>Select a division</option>
+            <option value="Avionics">Avionics</option>
+            <option value="Formula FRC">Formula FRC</option>
+            <option value="Rocketry">Rocketry</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+        <div>
+          <label for="p-category">Category *</label>
+          <select id="p-category" name="category" required>
+            <option value="current">Current</option>
+            <option value="future">Future</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row two">
+        <div>
+          <label for="p-status">Status *</label>
+          <select id="p-status" name="status" required>
+            <option value="Active">Active</option>
+            <option value="Planned">Planned</option>
+            <option value="Complete">Complete</option>
+          </select>
+        </div>
+        <div>
+          <label for="p-tags">Tags</label>
+          <input id="p-tags" name="tags" type="text" placeholder="Comma separated, e.g. CAD, Electronics, Testing">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="p-imageUrl">Image URL</label>
+        <input id="p-imageUrl" name="imageUrl" type="text" placeholder="assets/uploads/projects/your-image.jpg">
+      </div>
+
+      <div class="form-row">
+        <label for="p-gallery">Gallery URLs</label>
+        <input id="p-gallery" name="gallery" type="text" placeholder="Optional — comma separated image URLs">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add Project</button>
+      <p class="form-note">Stored locally in this browser via <code>localStorage</code>. For a multi-user, always-on database, connect this form to a backend or CMS.</p>
+    </form>
+
+    <div>
+      <div class="notice">Showing projects added from this browser. Seed/demo projects that ship with the site are not listed here and can't be deleted from this page.</div>
+      <div class="admin-list" id="admin-list"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> DAC — Delta Aerospace Club</span>
+      <span>Meis Manibus Astra</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/projects-data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

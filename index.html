@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAC — Delta Aerospace Club</title>
+<meta name="description" content="DAC is a student-run aerospace and robotics engineering team organized into three divisions: Avionics, Formula FRC, and Rocketry.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="DAC logo">
+      <span class="brand-text">DAC<span>Delta Aerospace Club</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="#who-we-are">Who We Are</a>
+      <a href="#divisions">Divisions</a>
+      <a href="#projects">Projects</a>
+      <a href="#partners">Partners</a>
+      <a href="#donate">Donate</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M4.5 12H1.9M22.1 12h-2.6M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.5 14.2A8.5 8.5 0 119.8 3.5a6.8 6.8 0 1010.7 10.7z"/></svg>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#who-we-are">Who We Are</a>
+    <a href="#divisions">Divisions</a>
+    <a href="#projects">Projects</a>
+    <a href="#partners">Partners</a>
+    <a href="#donate">Donate</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">Student Aerospace &amp; Robotics Engineering</div>
+      <h1>We build flight hardware, launch vehicles, and competition robots — end to end.</h1>
+      <p class="lede">DAC is a student-run engineering team organized into three technical divisions. We design, manufacture, test, and fly our own hardware, from custom flight computers to competition airframes and robots.</p>
+      <div class="hero-actions">
+        <a href="#divisions" class="btn btn-primary">View Divisions</a>
+        <a href="#projects" class="btn btn-ghost">See Current Projects</a>
+      </div>
+      <div class="readouts">
+        <div class="readout"><div class="val">3</div><div class="lbl">Divisions</div></div>
+        <div class="readout"><div class="val">12+</div><div class="lbl">Active Projects</div></div>
+        <div class="readout"><div class="val">40+</div><div class="lbl">Team Members</div></div>
+        <div class="readout"><div class="val">2019</div><div class="lbl">Founded</div></div>
+      </div>
+    </div>
+    <div class="hero-diagram" aria-hidden="true">
+      <svg viewBox="0 0 420 460" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="210" cy="230" r="170" fill="none" stroke="var(--border)" stroke-width="1"/>
+        <circle cx="210" cy="230" r="120" fill="none" stroke="var(--border)" stroke-width="1" stroke-dasharray="2 6"/>
+        <line x1="210" y1="20" x2="210" y2="440" stroke="var(--border)" stroke-width="1"/>
+        <line x1="20" y1="230" x2="400" y2="230" stroke="var(--border)" stroke-width="1"/>
+        <path d="M90 340 C 130 250, 170 150, 210 60" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <path d="M210 60 C 250 150, 290 250, 330 340" fill="none" stroke="var(--border-strong)" stroke-width="1.4" stroke-dasharray="4 5"/>
+        <circle cx="210" cy="60" r="4" fill="var(--accent)"/>
+        <circle cx="90" cy="340" r="3" fill="var(--ink-faint)"/>
+        <circle cx="330" cy="340" r="3" fill="var(--ink-faint)"/>
+        <g transform="translate(196,150) rotate(-18)">
+          <path d="M14 0 C 22 10, 22 34, 14 46 C 6 34, 6 10, 14 0 Z" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
+          <path d="M14 30 L6 46 L14 42 L22 46 Z" fill="var(--accent)" stroke="none"/>
+          <line x1="14" y1="6" x2="14" y2="24" stroke="var(--border-strong)" stroke-width="1"/>
+        </g>
+        <text x="30" y="424" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-faint)" letter-spacing="1">LAT 45.50 N</text>
+        <text x="290" y="424" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-faint)" letter-spacing="1">LON 73.57 W</text>
+        <text x="30" y="40" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-faint)" letter-spacing="1">APOGEE TRACK</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHO WE ARE ================= -->
+<section class="section" id="who-we-are">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">Who We Are</div>
+      <h2>An engineering team run entirely by students, held to professional standards.</h2>
+      <p>DAC gives students hands-on ownership of real hardware programs: we scope our own projects, source and manage our own budgets, and answer to our own test and safety reviews before anything leaves the shop. Every member works on a division, not a homework assignment.</p>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-mark">01</div>
+          <div>
+            <h3>Design–build–test, always</h3>
+            <p>Every project moves through the same discipline: requirements, design review, build, and a documented test before it flies or competes.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-mark">02</div>
+          <div>
+            <h3>Cross-division by design</h3>
+            <p>Avionics, Formula FRC, and Rocketry share tooling, a shop, and a review process, so members regularly work across disciplines.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-mark">03</div>
+          <div>
+            <h3>Built for sponsors and competitions</h3>
+            <p>We budget, document, and report the way an industry program would, because our partners and competition judges expect exactly that.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="motto-block bracket">
+      <div class="tick-tr"></div><div class="tick-bl"></div>
+      <div class="eyebrow">Team Motto</div>
+      <div class="motto-latin">Meis Manibus Astra</div>
+      <div class="motto-en">"With my own hands, to the stars."</div>
+      <p style="margin-top:20px;">It's on the patch because it's the operating principle: nothing on this team gets built, flown, or fielded that a member didn't design, machine, wire, or code themselves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIVISIONS ================= -->
+<section class="section" id="divisions">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Divisions</div>
+      <h2>Three divisions. One shop. One standard.</h2>
+      <p>Every member sits inside one of three technical divisions. Each runs its own project roadmap, but all three share the same review process, tooling, and shop floor.</p>
+    </div>
+
+    <div class="division-grid">
+
+      <!-- Avionics -->
+      <article class="division-card bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <div class="division-top">
+          <div class="division-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="12" height="12" rx="1"/><circle cx="12" cy="12" r="2.4"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2 2M19 5l-2 2M5 19l2-2M19 19l-2-2"/></svg>
+          </div>
+          <div class="division-code">DIV / AV</div>
+        </div>
+        <div>
+          <h3>Avionics</h3>
+          <p>Flight computers, sensors, telemetry, and the embedded software and control systems that fly on everything the club builds.</p>
+        </div>
+        <div>
+          <div class="division-list-label">Example Work</div>
+          <ul class="division-examples" data-division-examples="Avionics"></ul>
+        </div>
+        <div>
+          <div class="division-tags-label">Focus Areas</div>
+          <div class="tag-row">
+            <span class="tag">Embedded Systems</span>
+            <span class="tag">Sensors</span>
+            <span class="tag">Telemetry</span>
+            <span class="tag">Data Logging</span>
+          </div>
+        </div>
+        <a href="#projects" class="btn btn-ghost btn-sm" data-scroll-filter="Avionics">
+          View Avionics Projects
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+
+      <!-- Formula FRC -->
+      <article class="division-card bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <div class="division-top">
+          <div class="division-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.4M12 18.1v2.4M20.5 12h-2.4M5.9 12H3.5M17.7 6.3l-1.7 1.7M8 16l-1.7 1.7M17.7 17.7L16 16M8 8L6.3 6.3"/></svg>
+          </div>
+          <div class="division-code">DIV / FRC</div>
+        </div>
+        <div>
+          <h3>Formula FRC</h3>
+          <p>Mechanical design, CAD, manufacturing, and controls for competition robots — from drivetrains to manipulators, design through build and test.</p>
+        </div>
+        <div>
+          <div class="division-list-label">Example Work</div>
+          <ul class="division-examples" data-division-examples="Formula FRC"></ul>
+        </div>
+        <div>
+          <div class="division-tags-label">Focus Areas</div>
+          <div class="tag-row">
+            <span class="tag">CAD</span>
+            <span class="tag">Manufacturing</span>
+            <span class="tag">Controls</span>
+            <span class="tag">Mechanical Design</span>
+          </div>
+        </div>
+        <a href="#projects" class="btn btn-ghost btn-sm" data-scroll-filter="Formula FRC">
+          View Formula FRC Projects
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+
+      <!-- Rocketry -->
+      <article class="division-card bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <div class="division-top">
+          <div class="division-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.5c3 3.2 4.4 7 4.4 11 0 1.7-.5 3.2-1.3 4.4h-6.2c-.8-1.2-1.3-2.7-1.3-4.4 0-4 1.4-7.8 4.4-11z"/><path d="M9 15.5l-3 2.5 1-4M15 15.5l3 2.5-1-4"/><circle cx="12" cy="10" r="1.4"/></svg>
+          </div>
+          <div class="division-code">DIV / RKT</div>
+        </div>
+        <div>
+          <h3>Rocketry</h3>
+          <p>Airframe design, aerodynamics, recovery systems, and simulation, plus propulsion-related research within safe, legal, educational limits.</p>
+        </div>
+        <div>
+          <div class="division-list-label">Example Work</div>
+          <ul class="division-examples" data-division-examples="Rocketry"></ul>
+        </div>
+        <div>
+          <div class="division-tags-label">Focus Areas</div>
+          <div class="tag-row">
+            <span class="tag">Aerodynamics</span>
+            <span class="tag">Recovery Systems</span>
+            <span class="tag">Simulation</span>
+            <span class="tag">Composites</span>
+          </div>
+        </div>
+        <a href="#projects" class="btn btn-ghost btn-sm" data-scroll-filter="Rocketry">
+          View Rocketry Projects
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CURRENT PROJECTS ================= -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Current Projects</div>
+      <h2>What's on the shop floor right now.</h2>
+      <p>Every project below is active: in design, build, or test. Filter by division to see what each team is running this term.</p>
+    </div>
+
+    <div class="projects-toolbar">
+      <div class="filter-group" id="project-filters">
+        <button class="filter-btn active" data-filter="All">All</button>
+        <button class="filter-btn" data-filter="Avionics">Avionics</button>
+        <button class="filter-btn" data-filter="Formula FRC">Formula FRC</button>
+        <button class="filter-btn" data-filter="Rocketry">Rocketry</button>
+      </div>
+    </div>
+
+    <div class="project-grid" id="project-grid"></div>
+  </div>
+</section>
+
+<!-- ================= FUTURE PROJECTS ================= -->
+<section class="section" id="future-projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Future Projects</div>
+      <h2>What's queued up next.</h2>
+      <p>Scoped and approved, not yet in build. Timing is an estimate and moves with parts, funding, and test-range availability.</p>
+    </div>
+    <div class="roadmap" id="roadmap"></div>
+  </div>
+</section>
+
+<!-- ================= PARTNERS ================= -->
+<section class="section" id="partners">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Partners</div>
+      <h2>Built with the support of our sponsors.</h2>
+      <p>Materials, components, machine time, and funding from the organizations below make our build schedule possible.</p>
+    </div>
+
+    <div class="partner-tiers">
+      <div>
+        <div class="tier-label">Mission Partners</div>
+        <div class="partner-grid">
+          <div class="partner-slot">Partner Logo</div>
+          <div class="partner-slot">Partner Logo</div>
+        </div>
+      </div>
+      <div>
+        <div class="tier-label">Technical Partners</div>
+        <div class="partner-grid">
+          <div class="partner-slot">Partner Logo</div>
+          <div class="partner-slot">Partner Logo</div>
+          <div class="partner-slot">Partner Logo</div>
+          <div class="partner-slot">Partner Logo</div>
+        </div>
+      </div>
+      <div>
+        <div class="tier-label">Supporting Partners</div>
+        <div class="partner-grid">
+          <div class="partner-slot">Partner Logo</div>
+          <div class="partner-slot">Partner Logo</div>
+          <div class="partner-slot">Partner Logo</div>
+          <div class="partner-slot">Partner Logo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="partner-cta bracket">
+      <div class="tick-tr"></div><div class="tick-bl"></div>
+      <div>
+        <h3>Interested in sponsoring DAC?</h3>
+        <p>We put together a sponsorship package covering visibility, hardware access, and reporting for every tier.</p>
+      </div>
+      <a href="#contact" class="btn btn-primary">Request Sponsorship Package</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DONATE ================= -->
+<section class="section" id="donate">
+  <div class="wrap donate-grid">
+    <div>
+      <div class="eyebrow">Donate</div>
+      <h2>Direct support keeps hardware moving.</h2>
+      <p>Not every cost fits a sponsorship package. Individual donations cover consumables, travel to competitions, and the small parts that keep a build from stalling.</p>
+      <ul class="impact-list">
+        <li><span class="amt">$25</span><span class="desc">Covers PCB fabrication for one avionics prototype run.</span></li>
+        <li><span class="amt">$100</span><span class="desc">Covers composite materials for one rocketry airframe section.</span></li>
+        <li><span class="amt">$250</span><span class="desc">Covers competition registration for the Formula FRC team.</span></li>
+        <li><span class="amt">$500+</span><span class="desc">Covers travel and lodging for a team to attend a launch or competition.</span></li>
+      </ul>
+    </div>
+    <div class="donate-panel bracket">
+      <div class="tick-tr"></div><div class="tick-bl"></div>
+      <h3>Make a donation</h3>
+      <p>Donations are processed through our university's student organization fund. You'll get a confirmation and, on request, a receipt for your records.</p>
+      <a href="mailto:donate@dac-aero.club?subject=DAC%20Donation%20Inquiry" class="btn btn-primary">Donate by Email Request</a>
+      <p class="form-note">Prefer another method, or a recurring gift? Contact us and we'll set it up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section" id="contact" style="border-bottom:none;">
+  <div class="wrap contact-grid">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h2>Talk to the team.</h2>
+      <p>Prospective members, sponsors, and press — reach out through whichever channel fits. We respond fastest by email.</p>
+      <div class="contact-info-list">
+        <div class="contact-info-item">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg></div>
+          <div><div class="lbl">Email</div><div class="val">contact@dac-aero.club</div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.5 16.9v2.7a1.6 1.6 0 01-1.7 1.6 15.8 15.8 0 01-6.9-2.5 15.6 15.6 0 01-4.8-4.8 15.8 15.8 0 01-2.5-6.9A1.6 1.6 0 016.2 5H8.9a1.6 1.6 0 011.6 1.4c.1.9.3 1.8.6 2.7a1.6 1.6 0 01-.4 1.7L9.6 12a12.7 12.7 0 004.8 4.8l1.2-1.2a1.6 1.6 0 011.7-.4c.9.3 1.8.5 2.7.6a1.6 1.6 0 011.5 1.7z"/></svg></div>
+          <div><div class="lbl">Phone</div><div class="val">+1 (514) 555-0132</div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0112 2a7 7 0 017 7.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></div>
+          <div><div class="lbl">Shop</div><div class="val">Engineering Annex, Bay 3</div></div>
+        </div>
+      </div>
+      <div class="social-row">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2.5"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="7" r="0.6" fill="currentColor"/><path d="M11.5 17v-4a2.5 2.5 0 015 0v4"/><line x1="11.5" y1="10" x2="11.5" y2="17"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2-.2 4-1 4-4.5a3.5 3.5 0 00-1-2.5c.3-1 .3-2 0-3 0 0-.8-.3-2.8 1a10 10 0 00-5.4 0C7.3 4.7 6.5 5 6.5 5c-.3 1-.3 2 0 3a3.5 3.5 0 00-1 2.5c0 3.5 2 4.3 4 4.5-.6.6-.5 1-.5 2V21"/></svg></a>
+      </div>
+    </div>
+
+    <form class="form-panel bracket" id="contact-form">
+      <div class="tick-tr"></div><div class="tick-bl"></div>
+      <div class="form-row two">
+        <div>
+          <label for="c-name">Name</label>
+          <input id="c-name" name="name" type="text" required placeholder="Your name">
+        </div>
+        <div>
+          <label for="c-email">Email</label>
+          <input id="c-email" name="email" type="email" required placeholder="you@example.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="c-reason">Reason for contact</label>
+        <select id="c-reason" name="reason">
+          <option>Joining the team</option>
+          <option>Sponsorship</option>
+          <option>Media / press</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="c-message">Message</label>
+        <textarea id="c-message" name="message" required placeholder="Tell us a bit about why you're reaching out."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+      <p class="form-note">This form is a demo and does not send yet — wire it to your backend or form service of choice, or use the email link above.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="DAC logo">
+        <div>
+          <div class="brand-text">DAC</div>
+          <p>A student-run aerospace and robotics engineering team across three divisions: Avionics, Formula FRC, and Rocketry.</p>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="#who-we-are">Who We Are</a>
+        <a href="#divisions">Divisions</a>
+        <a href="#projects">Projects</a>
+        <a href="#partners">Partners</a>
+      </div>
+      <div class="footer-col">
+        <h4>Divisions</h4>
+        <a href="#projects" data-scroll-filter="Avionics">Avionics</a>
+        <a href="#projects" data-scroll-filter="Formula FRC">Formula FRC</a>
+        <a href="#projects" data-scroll-filter="Rocketry">Rocketry</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get Involved</h4>
+        <a href="#donate">Donate</a>
+        <a href="#contact">Contact</a>
+        <a href="admin.html">Team Admin</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> DAC — Delta Aerospace Club</span>
+      <span>Meis Manibus Astra</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/projects-data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
