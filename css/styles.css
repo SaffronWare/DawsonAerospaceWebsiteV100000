@@ -271,6 +271,17 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
 .hero-diagram { position: relative; }
 .hero-diagram svg { width: 100%; height: auto; }
+.hero-logo-frame {
+  aspect-ratio: 1 / 1;
+  max-width: 380px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  background: var(--surface);
+}
+.hero-logo-frame img { width: 100%; height: 100%; object-fit: contain; }
 
 .readouts {
   margin-top: 56px;
