@@ -117,8 +117,13 @@
       </div>
 
       <div class="form-row">
-        <label for="p-imageUrl">Image URL</label>
-        <input id="p-imageUrl" name="imageUrl" type="text" placeholder="assets/uploads/projects/your-image.jpg">
+        <label for="p-imageFile">Project image (uploads to GitHub)</label>
+        <input id="p-imageFile" name="imageFile" type="file" accept="image/*">
+      </div>
+
+      <div class="form-row">
+        <label for="p-imageUrl">Or paste an image URL instead</label>
+        <input id="p-imageUrl" name="imageUrl" type="text" placeholder="Leave blank if uploading a file above">
       </div>
 
       <div class="form-row">
@@ -127,12 +132,64 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Add Project</button>
-      <p class="form-note">Stored locally in this browser via <code>localStorage</code>. For a multi-user, always-on database, connect this form to a backend or CMS.</p>
+      <p class="form-note">If you attach a file, it's committed directly into this repo under <code>assets/uploads/projects/</code> via a serverless upload function — the image itself is real and shared with everyone. The rest of the project's details are still stored locally via <code>localStorage</code>, so they'll only show up in this browser until a full backend is connected.</p>
     </form>
 
     <div>
       <div class="notice">Showing projects added from this browser. Seed/demo projects that ship with the site are not listed here and can't be deleted from this page.</div>
       <div class="admin-list" id="admin-list"></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Team Admin</div>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Add a sponsor</h1>
+    <p style="max-width:560px;">Sponsor logos upload to GitHub the same way project images do, then appear live in the Partners section on the homepage.</p>
+  </div>
+</div>
+
+<section class="admin-shell">
+  <div class="wrap admin-grid">
+
+    <form class="admin-panel bracket" id="sponsor-form">
+      <div class="tick-tr"></div><div class="tick-bl"></div>
+
+      <div id="sponsor-notice" class="notice" style="display:none;"></div>
+
+      <div class="form-row">
+        <label for="s-name">Sponsor name *</label>
+        <input id="s-name" name="name" type="text" required placeholder="e.g. Acme Aerospace Supply">
+      </div>
+
+      <div class="form-row">
+        <label for="s-tier">Tier *</label>
+        <select id="s-tier" name="tier" required>
+          <option value="Mission">Mission Partner</option>
+          <option value="Technical">Technical Partner</option>
+          <option value="Supporting">Supporting Partner</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="s-link">Website link</label>
+        <input id="s-link" name="link" type="url" placeholder="https://example.com">
+      </div>
+
+      <div class="form-row">
+        <label for="s-logoFile">Logo *</label>
+        <input id="s-logoFile" name="logoFile" type="file" accept="image/*" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add Sponsor</button>
+      <p class="form-note">Logo files are committed into this repo under <code>assets/uploads/sponsors/</code>, so once added they're visible to every visitor — not just this browser. Sponsor name, tier, and link are still stored locally for now.</p>
+    </form>
+
+    <div>
+      <div class="notice">Sponsors added from this browser. Delete removes them from this browser's list and the public site here, but the logo file itself stays in the repo.</div>
+      <div class="admin-list" id="sponsor-list"></div>
     </div>
 
   </div>

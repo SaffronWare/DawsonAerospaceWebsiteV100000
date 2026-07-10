@@ -1,0 +1,7 @@
+{
+  "name": "dac-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DAC — Delta Aerospace Club static site with a Vercel serverless upload endpoint at /api/upload."
+}

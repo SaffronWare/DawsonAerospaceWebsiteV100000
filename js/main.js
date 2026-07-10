@@ -4,9 +4,10 @@
 
 const DAC = (() => {
   const STORAGE_KEY = "dac_projects";
+  const SPONSOR_KEY = "dac_sponsors";
   const THEME_KEY = "dac_theme";
 
-  /* ---------- data ---------- */
+  /* ---------- data: projects ---------- */
   function getUserProjects() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -26,6 +27,21 @@ const DAC = (() => {
     return [...seed, ...getUserProjects()];
   }
 
+  /* ---------- data: sponsors ---------- */
+  function getUserSponsors() {
+    try {
+      const raw = localStorage.getItem(SPONSOR_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      console.error("Could not read stored sponsors", e);
+      return [];
+    }
+  }
+
+  function saveUserSponsors(list) {
+    localStorage.setItem(SPONSOR_KEY, JSON.stringify(list));
+  }
+
   function slugify(str) {
     return str
       .toLowerCase()
@@ -36,6 +52,33 @@ const DAC = (() => {
 
   function uid() {
     return "p-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+  }
+
+  /* ---------- image upload → GitHub (via /api/upload serverless function) ---------- */
+  function readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result).split(",")[1]);
+      reader.onerror = () => reject(new Error("Could not read file"));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function uploadImageToGitHub(file, folder) {
+    const base64 = await readFileAsBase64(file);
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ filename: file.name, base64, folder })
+    });
+    let data;
+    try {
+      data = await res.json();
+    } catch (e) {
+      throw new Error("Upload endpoint returned an unexpected response.");
+    }
+    if (!res.ok) throw new Error(data.error || "Upload failed");
+    return data.url;
   }
 
   /* ---------- theme ---------- */
@@ -215,9 +258,27 @@ const DAC = (() => {
       if (!slugTouched) slugInput.value = slugify(titleInput.value);
     });
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const fd = new FormData(form);
+      const submitBtn = form.querySelector("button[type=submit]");
+      const fileInput = form.querySelector("[name=imageFile]");
+      const file = fileInput && fileInput.files && fileInput.files[0];
+
+      let imageUrl = (fd.get("imageUrl") || "").trim();
+
+      if (file) {
+        submitBtn.disabled = true;
+        showNotice(`Uploading ${file.name} to GitHub…`, "");
+        try {
+          imageUrl = await uploadImageToGitHub(file, "projects");
+        } catch (err) {
+          showNotice(`Image upload failed: ${err.message}`, "warn");
+          submitBtn.disabled = false;
+          return;
+        }
+      }
+
       const now = new Date().toISOString();
       const project = {
         id: uid(),
@@ -225,7 +286,7 @@ const DAC = (() => {
         slug: (fd.get("slug") || slugify(fd.get("title"))).trim(),
         description: fd.get("description").trim(),
         longDescription: (fd.get("longDescription") || "").trim(),
-        imageUrl: (fd.get("imageUrl") || "").trim(),
+        imageUrl,
         gallery: (fd.get("gallery") || "")
           .split(",")
           .map((s) => s.trim())
@@ -243,6 +304,7 @@ const DAC = (() => {
 
       if (!project.division) {
         showNotice("Division is required.", "warn");
+        submitBtn.disabled = false;
         return;
       }
 
@@ -251,13 +313,14 @@ const DAC = (() => {
       saveUserProjects(list);
       form.reset();
       slugTouched = false;
+      submitBtn.disabled = false;
       showNotice(`"${project.title}" was added to ${project.division}.`, "ok");
       renderAdminList();
     });
   }
 
-  function showNotice(text, kind) {
-    const el = document.getElementById("admin-notice");
+  function showNotice(text, kind, targetId) {
+    const el = document.getElementById(targetId || "admin-notice");
     if (!el) return;
     el.textContent = text;
     el.className = "notice" + (kind ? " " + kind : "");
@@ -302,6 +365,111 @@ const DAC = (() => {
     });
   }
 
+  /* ---------- admin: sponsors ---------- */
+  function initSponsorForm() {
+    const form = document.getElementById("sponsor-form");
+    if (!form) return;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const submitBtn = form.querySelector("button[type=submit]");
+      const fileInput = form.querySelector("[name=logoFile]");
+      const file = fileInput && fileInput.files && fileInput.files[0];
+
+      if (!file) {
+        showNotice("A logo file is required.", "warn", "sponsor-notice");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      showNotice(`Uploading ${file.name} to GitHub…`, "", "sponsor-notice");
+      let logoUrl;
+      try {
+        logoUrl = await uploadImageToGitHub(file, "sponsors");
+      } catch (err) {
+        showNotice(`Logo upload failed: ${err.message}`, "warn", "sponsor-notice");
+        submitBtn.disabled = false;
+        return;
+      }
+
+      const sponsor = {
+        id: uid(),
+        name: fd.get("name").trim(),
+        tier: fd.get("tier"),
+        link: (fd.get("link") || "").trim(),
+        logoUrl,
+        createdAt: new Date().toISOString()
+      };
+
+      const list = getUserSponsors();
+      list.push(sponsor);
+      saveUserSponsors(list);
+      form.reset();
+      submitBtn.disabled = false;
+      showNotice(`"${sponsor.name}" was added to ${sponsor.tier}.`, "ok", "sponsor-notice");
+      renderSponsorAdminList();
+    });
+  }
+
+  function renderSponsorAdminList() {
+    const list = document.getElementById("sponsor-list");
+    if (!list) return;
+    const items = getUserSponsors();
+    if (!items.length) {
+      list.innerHTML = `<div class="admin-empty">No sponsors added yet. Sponsors you add above will appear here and on the public Partners section.</div>`;
+      return;
+    }
+    list.innerHTML = items
+      .slice()
+      .reverse()
+      .map(
+        (s) => `
+      <div class="admin-row">
+        <div>
+          <div class="admin-row-title">${escapeHtml(s.name)}</div>
+          <div class="admin-row-meta">${escapeHtml(s.tier)}</div>
+        </div>
+        <div class="admin-row-actions">
+          <button class="icon-btn" data-delete-sponsor="${s.id}" title="Delete sponsor" aria-label="Delete sponsor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m-8 0l1 13a1 1 0 001 1h6a1 1 0 001-1l1-13"/></svg>
+          </button>
+        </div>
+      </div>`
+      )
+      .join("");
+
+    list.querySelectorAll("[data-delete-sponsor]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.deleteSponsor;
+        const next = getUserSponsors().filter((s) => s.id !== id);
+        saveUserSponsors(next);
+        renderSponsorAdminList();
+      });
+    });
+  }
+
+  /* ---------- render: partners (public site) ---------- */
+  function renderPartners() {
+    const grids = document.querySelectorAll("[data-tier]");
+    if (!grids.length) return;
+    const sponsors = getUserSponsors();
+
+    grids.forEach((grid) => {
+      const tier = grid.dataset.tier;
+      const items = sponsors.filter((s) => s.tier === tier);
+      if (!items.length) return; // keep the static placeholder slots already in the HTML
+      grid.innerHTML = items
+        .map((s) => {
+          const inner = `<img src="${escapeAttr(s.logoUrl)}" alt="${escapeAttr(s.name)}" loading="lazy">`;
+          return s.link
+            ? `<a class="partner-slot partner-slot-logo" href="${escapeAttr(s.link)}" target="_blank" rel="noopener">${inner}</a>`
+            : `<div class="partner-slot partner-slot-logo">${inner}</div>`;
+        })
+        .join("");
+    });
+  }
+
   /* ---------- init ---------- */
   function init() {
     initTheme();
@@ -309,8 +477,11 @@ const DAC = (() => {
     renderDivisionExamples();
     renderProjectGrid();
     renderRoadmap();
+    renderPartners();
     initAdminForm();
     renderAdminList();
+    initSponsorForm();
+    renderSponsorAdminList();
 
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();

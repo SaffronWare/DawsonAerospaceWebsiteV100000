@@ -500,6 +500,8 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
   text-align: center;
   padding: 12px;
 }
+.partner-slot-logo { padding: 18px; }
+.partner-slot-logo img { width: 100%; height: 100%; object-fit: contain; }
 .partner-cta {
   margin-top: 48px;
   padding: 32px;
