@@ -1,4 +1,4 @@
-# DAC — Delta Aerospace Club website
+# DAC — Dawson Aerospace Club website
 
 Static site, no build step. Open `index.html` directly, or serve the folder
 with any static host (GitHub Pages, Netlify, Vercel, S3, etc.).

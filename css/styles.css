@@ -1,5 +1,5 @@
 /* =========================================================
-   DAC — Delta Aerospace Club
+   DAC — Dawson Aerospace Club
    Design system: blueprint / technical-drawing register marks
    No gradients. No glow. No drop shadows on cards.
    ========================================================= */
@@ -485,8 +485,9 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 .tier-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 16px; }
 .partner-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 16px;
+  max-width: 640px;
 }
 .partner-slot {
   aspect-ratio: 3/2;

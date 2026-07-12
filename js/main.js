@@ -451,23 +451,19 @@ const DAC = (() => {
 
   /* ---------- render: partners (public site) ---------- */
   function renderPartners() {
-    const grids = document.querySelectorAll("[data-tier]");
-    if (!grids.length) return;
+    const grid = document.querySelector('[data-tier="any"]');
+    if (!grid) return;
     const sponsors = getUserSponsors();
+    if (!sponsors.length) return; // keep the static placeholder slots already in the HTML
 
-    grids.forEach((grid) => {
-      const tier = grid.dataset.tier;
-      const items = sponsors.filter((s) => s.tier === tier);
-      if (!items.length) return; // keep the static placeholder slots already in the HTML
-      grid.innerHTML = items
-        .map((s) => {
-          const inner = `<img src="${escapeAttr(s.logoUrl)}" alt="${escapeAttr(s.name)}" loading="lazy">`;
-          return s.link
-            ? `<a class="partner-slot partner-slot-logo" href="${escapeAttr(s.link)}" target="_blank" rel="noopener">${inner}</a>`
-            : `<div class="partner-slot partner-slot-logo">${inner}</div>`;
-        })
-        .join("");
-    });
+    grid.innerHTML = sponsors
+      .map((s) => {
+        const inner = `<img src="${escapeAttr(s.logoUrl)}" alt="${escapeAttr(s.name)}" loading="lazy">`;
+        return s.link
+          ? `<a class="partner-slot partner-slot-logo" href="${escapeAttr(s.link)}" target="_blank" rel="noopener" title="${escapeAttr(s.name)}">${inner}</a>`
+          : `<div class="partner-slot partner-slot-logo" title="${escapeAttr(s.name)}">${inner}</div>`;
+      })
+      .join("");
   }
 
   /* ---------- init ---------- */
