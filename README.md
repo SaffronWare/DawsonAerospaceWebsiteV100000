@@ -45,6 +45,26 @@ Uploaded files land in `assets/uploads/projects/` or
 `assets/uploads/sponsors/` in the repo and are served from
 `raw.githubusercontent.com`.
 
+## Editing, deleting, and history
+
+Every admin-added project or sponsor can be edited or deleted from
+`admin.html`:
+
+- **Edit** loads that item back into the form above — the submit button
+  changes to "Save Changes," and there's a "Cancel Edit" button if you
+  change your mind. Editing a project preserves its original `id` and
+  `createdAt`, and only bumps `updatedAt`.
+- **Delete** asks for confirmation, then removes the item from the live
+  site — but it is never silently lost.
+- **Change History**, near the bottom of the admin page, logs every
+  create/edit/delete (most recent first), stored under the `dac_history`
+  key in `localStorage` (capped at the most recent 300 entries). Deleted
+  entries show a **Restore** button that adds the item straight back with
+  all of its original data intact.
+
+Current and Future/Queued projects are listed separately on the admin
+page so it's easy to see and manage what's queued up next.
+
 ## Project schema
 
 Every project (seed or admin-added) follows:

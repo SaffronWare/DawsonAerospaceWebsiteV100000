@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Team Admin — Add Project — DAC</title>
+<title>Team Admin — DAC</title>
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -48,8 +48,8 @@
 <div class="page-header">
   <div class="wrap">
     <div class="eyebrow">Team Admin</div>
-    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Add a project</h1>
-    <p style="max-width:560px;">Projects added here are saved in this browser and appear immediately on the public Current or Future Projects sections, filterable by division.</p>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Add or edit a project</h1>
+    <p style="max-width:560px;">Projects added here are saved in this browser and appear immediately on the public Current or Future Projects sections, filterable by division. Use Edit on any row below to update it, or Delete to remove it — deletions stay recoverable in the Change History section.</p>
   </div>
 </div>
 
@@ -131,13 +131,19 @@
         <input id="p-gallery" name="gallery" type="text" placeholder="Optional — comma separated image URLs">
       </div>
 
-      <button type="submit" class="btn btn-primary">Add Project</button>
+      <div class="form-row" style="display:flex; gap:12px; align-items:center;">
+        <button type="submit" class="btn btn-primary">Add Project</button>
+        <button type="button" id="project-cancel-edit" class="btn btn-ghost btn-sm" style="display:none;">Cancel Edit</button>
+      </div>
       <p class="form-note">If you attach a file, it's committed directly into this repo under <code>assets/uploads/projects/</code> via a serverless upload function — the image itself is real and shared with everyone. The rest of the project's details are still stored locally via <code>localStorage</code>, so they'll only show up in this browser until a full backend is connected.</p>
     </form>
 
     <div>
-      <div class="notice">Showing projects added from this browser. Seed/demo projects that ship with the site are not listed here and can't be deleted from this page.</div>
-      <div class="admin-list" id="admin-list"></div>
+      <div class="notice">Showing projects added from this browser, split into Current and Future/Queued. Seed/demo projects that ship with the site aren't listed here and can't be edited from this page.</div>
+      <div class="division-tags-label" style="margin-top:20px;">Current Projects</div>
+      <div class="admin-list" id="admin-list-current"></div>
+      <div class="division-tags-label" style="margin-top:28px;">Future / Queued Projects</div>
+      <div class="admin-list" id="admin-list-future"></div>
     </div>
 
   </div>
@@ -146,8 +152,8 @@
 <div class="page-header">
   <div class="wrap">
     <div class="eyebrow">Team Admin</div>
-    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Add a sponsor</h1>
-    <p style="max-width:560px;">Sponsor logos upload to GitHub the same way project images do, then appear live in the Partners section on the homepage.</p>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Add or edit a sponsor</h1>
+    <p style="max-width:560px;">Sponsor logos upload to GitHub the same way project images do, then appear live in the Partners section on the homepage. Use Edit to update a sponsor's details or logo.</p>
   </div>
 </div>
 
@@ -183,8 +189,11 @@
         <input id="s-logoFile" name="logoFile" type="file" accept="image/*" required>
       </div>
 
-      <button type="submit" class="btn btn-primary">Add Sponsor</button>
-      <p class="form-note">Logo files are committed into this repo under <code>assets/uploads/sponsors/</code>, so once added they're visible to every visitor — not just this browser. Sponsor name, tier, and link are still stored locally for now.</p>
+      <div class="form-row" style="display:flex; gap:12px; align-items:center;">
+        <button type="submit" class="btn btn-primary">Add Sponsor</button>
+        <button type="button" id="sponsor-cancel-edit" class="btn btn-ghost btn-sm" style="display:none;">Cancel Edit</button>
+      </div>
+      <p class="form-note">Logo files are committed into this repo under <code>assets/uploads/sponsors/</code>, so once added they're visible to every visitor — not just this browser. When editing, leave the logo field empty to keep the existing logo. Sponsor name, tier, and link are still stored locally for now.</p>
     </form>
 
     <div>
@@ -192,6 +201,20 @@
       <div class="admin-list" id="sponsor-list"></div>
     </div>
 
+  </div>
+</section>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Team Admin</div>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Change history</h1>
+    <p style="max-width:560px;">Every add, edit, and delete made from this browser is logged here, most recent first. Deleted projects and sponsors can be restored from this list.</p>
+  </div>
+</div>
+
+<section class="admin-shell">
+  <div class="wrap">
+    <div class="admin-list" id="history-list"></div>
   </div>
 </section>
 

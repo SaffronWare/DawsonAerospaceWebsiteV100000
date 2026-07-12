@@ -5,7 +5,9 @@
 const DAC = (() => {
   const STORAGE_KEY = "dac_projects";
   const SPONSOR_KEY = "dac_sponsors";
+  const HISTORY_KEY = "dac_history";
   const THEME_KEY = "dac_theme";
+  const HISTORY_LIMIT = 300;
 
   /* ---------- data: projects ---------- */
   function getUserProjects() {
@@ -27,6 +29,34 @@ const DAC = (() => {
     return [...seed, ...getUserProjects()];
   }
 
+  function addProject(project) {
+    const list = getUserProjects();
+    list.push(project);
+    saveUserProjects(list);
+    logHistory({ action: "created", entityType: "project", title: project.title, before: null, after: project });
+  }
+
+  function updateProject(id, fields) {
+    const list = getUserProjects();
+    const idx = list.findIndex((p) => p.id === id);
+    if (idx === -1) return null;
+    const before = list[idx];
+    const after = { ...before, ...fields, id: before.id, createdAt: before.createdAt, updatedAt: new Date().toISOString() };
+    list[idx] = after;
+    saveUserProjects(list);
+    logHistory({ action: "updated", entityType: "project", title: after.title, before, after });
+    return after;
+  }
+
+  function deleteProject(id) {
+    const list = getUserProjects();
+    const idx = list.findIndex((p) => p.id === id);
+    if (idx === -1) return;
+    const [removed] = list.splice(idx, 1);
+    saveUserProjects(list);
+    logHistory({ action: "deleted", entityType: "project", title: removed.title, before: removed, after: null });
+  }
+
   /* ---------- data: sponsors ---------- */
   function getUserSponsors() {
     try {
@@ -40,6 +70,79 @@ const DAC = (() => {
 
   function saveUserSponsors(list) {
     localStorage.setItem(SPONSOR_KEY, JSON.stringify(list));
+  }
+
+  function addSponsor(sponsor) {
+    const list = getUserSponsors();
+    list.push(sponsor);
+    saveUserSponsors(list);
+    logHistory({ action: "created", entityType: "sponsor", title: sponsor.name, before: null, after: sponsor });
+  }
+
+  function updateSponsor(id, fields) {
+    const list = getUserSponsors();
+    const idx = list.findIndex((s) => s.id === id);
+    if (idx === -1) return null;
+    const before = list[idx];
+    const after = { ...before, ...fields, id: before.id, createdAt: before.createdAt, updatedAt: new Date().toISOString() };
+    list[idx] = after;
+    saveUserSponsors(list);
+    logHistory({ action: "updated", entityType: "sponsor", title: after.name, before, after });
+    return after;
+  }
+
+  function deleteSponsor(id) {
+    const list = getUserSponsors();
+    const idx = list.findIndex((s) => s.id === id);
+    if (idx === -1) return;
+    const [removed] = list.splice(idx, 1);
+    saveUserSponsors(list);
+    logHistory({ action: "deleted", entityType: "sponsor", title: removed.name, before: removed, after: null });
+  }
+
+  /* ---------- data: history (preserved even after deletes) ---------- */
+  function getHistory() {
+    try {
+      const raw = localStorage.getItem(HISTORY_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      console.error("Could not read history", e);
+      return [];
+    }
+  }
+
+  function saveHistory(list) {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+  }
+
+  function logHistory(entry) {
+    const list = getHistory();
+    list.push({
+      id: uid(),
+      timestamp: new Date().toISOString(),
+      ...entry
+    });
+    // keep the log from growing forever, but keep plenty of history
+    while (list.length > HISTORY_LIMIT) list.shift();
+    saveHistory(list);
+  }
+
+  function restoreFromHistory(historyId) {
+    const history = getHistory();
+    const entry = history.find((h) => h.id === historyId);
+    if (!entry || entry.action !== "deleted" || !entry.before) return;
+
+    if (entry.entityType === "project") {
+      const list = getUserProjects();
+      list.push(entry.before);
+      saveUserProjects(list);
+      logHistory({ action: "restored", entityType: "project", title: entry.before.title, before: null, after: entry.before });
+    } else if (entry.entityType === "sponsor") {
+      const list = getUserSponsors();
+      list.push(entry.before);
+      saveUserSponsors(list);
+      logHistory({ action: "restored", entityType: "sponsor", title: entry.before.name, before: null, after: entry.before });
+    }
   }
 
   function slugify(str) {
@@ -167,6 +270,12 @@ const DAC = (() => {
     return `Q${q} ${d.getFullYear()}`;
   }
 
+  function formatDateTime(iso) {
+    const d = new Date(iso);
+    if (isNaN(d)) return "";
+    return d.toLocaleString(undefined, { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+  }
+
   function escapeHtml(str) {
     return String(str ?? "").replace(/[&<>"']/g, (m) => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -245,23 +354,60 @@ const DAC = (() => {
     });
   }
 
-  /* ---------- admin: form ---------- */
+  /* ---------- admin: project form (create + edit) ---------- */
+  let editingProjectId = null;
+
   function initAdminForm() {
     const form = document.getElementById("project-form");
     if (!form) return;
 
     const titleInput = form.querySelector("[name=title]");
     const slugInput = form.querySelector("[name=slug]");
+    const submitBtn = form.querySelector("button[type=submit]");
+    const cancelBtn = document.getElementById("project-cancel-edit");
     let slugTouched = false;
     slugInput.addEventListener("input", () => (slugTouched = true));
     titleInput.addEventListener("input", () => {
       if (!slugTouched) slugInput.value = slugify(titleInput.value);
     });
 
+    function enterEditMode(project) {
+      editingProjectId = project.id;
+      form.querySelector("[name=title]").value = project.title;
+      form.querySelector("[name=slug]").value = project.slug;
+      slugTouched = true;
+      form.querySelector("[name=description]").value = project.description;
+      form.querySelector("[name=longDescription]").value = project.longDescription || "";
+      form.querySelector("[name=division]").value = project.division;
+      form.querySelector("[name=category]").value = project.category;
+      form.querySelector("[name=status]").value = project.status;
+      form.querySelector("[name=tags]").value = (project.tags || []).join(", ");
+      form.querySelector("[name=imageUrl]").value = project.imageUrl || "";
+      form.querySelector("[name=gallery]").value = (project.gallery || []).join(", ");
+      submitBtn.textContent = "Save Changes";
+      if (cancelBtn) cancelBtn.style.display = "inline-flex";
+      showNotice(`Editing "${project.title}" — make your changes and Save.`, "");
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function exitEditMode() {
+      editingProjectId = null;
+      slugTouched = false;
+      form.reset();
+      submitBtn.textContent = "Add Project";
+      if (cancelBtn) cancelBtn.style.display = "none";
+    }
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", () => {
+        exitEditMode();
+        showNotice("Edit cancelled.", "");
+      });
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const fd = new FormData(form);
-      const submitBtn = form.querySelector("button[type=submit]");
       const fileInput = form.querySelector("[name=imageFile]");
       const file = fileInput && fileInput.files && fileInput.files[0];
 
@@ -279,44 +425,48 @@ const DAC = (() => {
         }
       }
 
-      const now = new Date().toISOString();
-      const project = {
-        id: uid(),
-        title: fd.get("title").trim(),
-        slug: (fd.get("slug") || slugify(fd.get("title"))).trim(),
-        description: fd.get("description").trim(),
-        longDescription: (fd.get("longDescription") || "").trim(),
-        imageUrl,
-        gallery: (fd.get("gallery") || "")
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-        status: fd.get("status"),
-        tags: (fd.get("tags") || "")
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-        category: fd.get("category"),
-        division: fd.get("division"),
-        createdAt: now,
-        updatedAt: now
-      };
-
-      if (!project.division) {
+      const division = fd.get("division");
+      if (!division) {
         showNotice("Division is required.", "warn");
         submitBtn.disabled = false;
         return;
       }
 
-      const list = getUserProjects();
-      list.push(project);
-      saveUserProjects(list);
-      form.reset();
-      slugTouched = false;
-      submitBtn.disabled = false;
-      showNotice(`"${project.title}" was added to ${project.division}.`, "ok");
-      renderAdminList();
+      const fields = {
+        title: fd.get("title").trim(),
+        slug: (fd.get("slug") || slugify(fd.get("title"))).trim(),
+        description: fd.get("description").trim(),
+        longDescription: (fd.get("longDescription") || "").trim(),
+        imageUrl,
+        gallery: (fd.get("gallery") || "").split(",").map((s) => s.trim()).filter(Boolean),
+        status: fd.get("status"),
+        tags: (fd.get("tags") || "").split(",").map((s) => s.trim()).filter(Boolean),
+        category: fd.get("category"),
+        division
+      };
+
+      if (editingProjectId) {
+        const updated = updateProject(editingProjectId, fields);
+        submitBtn.disabled = false;
+        exitEditMode();
+        showNotice(`"${updated.title}" was updated.`, "ok");
+      } else {
+        const now = new Date().toISOString();
+        const project = { id: uid(), ...fields, createdAt: now, updatedAt: now };
+        addProject(project);
+        submitBtn.disabled = false;
+        exitEditMode();
+        showNotice(`"${project.title}" was added to ${project.division}.`, "ok");
+      }
+
+      renderAdminLists();
+      renderHistoryList();
     });
+
+    window.__dacEditProject = (id) => {
+      const project = getUserProjects().find((p) => p.id === id);
+      if (project) enterEditMode(project);
+    };
   }
 
   function showNotice(text, kind, targetId) {
@@ -327,89 +477,153 @@ const DAC = (() => {
     el.style.display = "block";
   }
 
-  /* ---------- admin: list + delete ---------- */
-  function renderAdminList() {
-    const list = document.getElementById("admin-list");
-    if (!list) return;
-    const items = getUserProjects();
-    if (!items.length) {
-      list.innerHTML = `<div class="admin-empty">No admin-added projects yet. Projects you add above will appear here, and on the public site, in this browser.</div>`;
-      return;
-    }
-    list.innerHTML = items
-      .slice()
-      .reverse()
-      .map(
-        (p) => `
+  /* ---------- admin: project lists (current + future), with edit + delete ---------- */
+  function adminProjectRowHtml(p) {
+    return `
       <div class="admin-row">
         <div>
           <div class="admin-row-title">${escapeHtml(p.title)}</div>
           <div class="admin-row-meta">${escapeHtml(p.division)} · ${escapeHtml(p.category)} · ${escapeHtml(p.status)}</div>
         </div>
         <div class="admin-row-actions">
+          <button class="icon-btn" data-edit="${p.id}" title="Edit project" aria-label="Edit project">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20h4L18.5 9.5a2 2 0 000-2.8l-1.2-1.2a2 2 0 00-2.8 0L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>
+          </button>
           <button class="icon-btn" data-delete="${p.id}" title="Delete project" aria-label="Delete project">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m-8 0l1 13a1 1 0 001 1h6a1 1 0 001-1l1-13"/></svg>
           </button>
         </div>
-      </div>`
-      )
-      .join("");
+      </div>`;
+  }
 
-    list.querySelectorAll("[data-delete]").forEach((btn) => {
+  function renderAdminLists() {
+    const currentList = document.getElementById("admin-list-current");
+    const futureList = document.getElementById("admin-list-future");
+    if (!currentList && !futureList) return;
+
+    const items = getUserProjects();
+    const current = items.filter((p) => p.category === "current");
+    const future = items.filter((p) => p.category === "future");
+
+    if (currentList) {
+      currentList.innerHTML = current.length
+        ? current.slice().reverse().map(adminProjectRowHtml).join("")
+        : `<div class="admin-empty">No admin-added current projects yet.</div>`;
+    }
+    if (futureList) {
+      futureList.innerHTML = future.length
+        ? future.slice().reverse().map(adminProjectRowHtml).join("")
+        : `<div class="admin-empty">No admin-added future/queued projects yet.</div>`;
+    }
+
+    document.querySelectorAll("#admin-list-current [data-edit], #admin-list-future [data-edit]").forEach((btn) => {
+      btn.addEventListener("click", () => window.__dacEditProject && window.__dacEditProject(btn.dataset.edit));
+    });
+    document.querySelectorAll("#admin-list-current [data-delete], #admin-list-future [data-delete]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const id = btn.dataset.delete;
-        const next = getUserProjects().filter((p) => p.id !== id);
-        saveUserProjects(next);
-        renderAdminList();
+        const project = getUserProjects().find((p) => p.id === btn.dataset.delete);
+        if (!project) return;
+        if (!confirm(`Delete "${project.title}"? It stays recoverable in the change history below.`)) return;
+        deleteProject(project.id);
+        renderAdminLists();
+        renderHistoryList();
       });
     });
   }
 
-  /* ---------- admin: sponsors ---------- */
+  // kept for compatibility with any external references
+  function renderAdminList() { renderAdminLists(); }
+
+  /* ---------- admin: sponsors (create + edit + delete) ---------- */
+  let editingSponsorId = null;
+
   function initSponsorForm() {
     const form = document.getElementById("sponsor-form");
     if (!form) return;
 
+    const submitBtn = form.querySelector("button[type=submit]");
+    const cancelBtn = document.getElementById("sponsor-cancel-edit");
+    const logoInput = form.querySelector("[name=logoFile]");
+
+    function enterEditMode(sponsor) {
+      editingSponsorId = sponsor.id;
+      form.querySelector("[name=name]").value = sponsor.name;
+      form.querySelector("[name=tier]").value = sponsor.tier;
+      form.querySelector("[name=link]").value = sponsor.link || "";
+      logoInput.required = false;
+      submitBtn.textContent = "Save Changes";
+      if (cancelBtn) cancelBtn.style.display = "inline-flex";
+      showNotice(`Editing "${sponsor.name}" — attach a new logo only if you want to replace it.`, "", "sponsor-notice");
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function exitEditMode() {
+      editingSponsorId = null;
+      form.reset();
+      logoInput.required = true;
+      submitBtn.textContent = "Add Sponsor";
+      if (cancelBtn) cancelBtn.style.display = "none";
+    }
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", () => {
+        exitEditMode();
+        showNotice("Edit cancelled.", "", "sponsor-notice");
+      });
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const fd = new FormData(form);
-      const submitBtn = form.querySelector("button[type=submit]");
-      const fileInput = form.querySelector("[name=logoFile]");
-      const file = fileInput && fileInput.files && fileInput.files[0];
+      const file = logoInput && logoInput.files && logoInput.files[0];
 
-      if (!file) {
+      if (!file && !editingSponsorId) {
         showNotice("A logo file is required.", "warn", "sponsor-notice");
         return;
       }
 
-      submitBtn.disabled = true;
-      showNotice(`Uploading ${file.name} to GitHub…`, "", "sponsor-notice");
-      let logoUrl;
-      try {
-        logoUrl = await uploadImageToGitHub(file, "sponsors");
-      } catch (err) {
-        showNotice(`Logo upload failed: ${err.message}`, "warn", "sponsor-notice");
-        submitBtn.disabled = false;
-        return;
+      let logoUrl = null;
+      if (file) {
+        submitBtn.disabled = true;
+        showNotice(`Uploading ${file.name} to GitHub…`, "", "sponsor-notice");
+        try {
+          logoUrl = await uploadImageToGitHub(file, "sponsors");
+        } catch (err) {
+          showNotice(`Logo upload failed: ${err.message}`, "warn", "sponsor-notice");
+          submitBtn.disabled = false;
+          return;
+        }
       }
 
-      const sponsor = {
-        id: uid(),
+      const fields = {
         name: fd.get("name").trim(),
         tier: fd.get("tier"),
-        link: (fd.get("link") || "").trim(),
-        logoUrl,
-        createdAt: new Date().toISOString()
+        link: (fd.get("link") || "").trim()
       };
+      if (logoUrl) fields.logoUrl = logoUrl;
 
-      const list = getUserSponsors();
-      list.push(sponsor);
-      saveUserSponsors(list);
-      form.reset();
-      submitBtn.disabled = false;
-      showNotice(`"${sponsor.name}" was added to ${sponsor.tier}.`, "ok", "sponsor-notice");
+      if (editingSponsorId) {
+        const updated = updateSponsor(editingSponsorId, fields);
+        submitBtn.disabled = false;
+        exitEditMode();
+        showNotice(`"${updated.name}" was updated.`, "ok", "sponsor-notice");
+      } else {
+        const sponsor = { id: uid(), ...fields, logoUrl, createdAt: new Date().toISOString() };
+        addSponsor(sponsor);
+        submitBtn.disabled = false;
+        exitEditMode();
+        showNotice(`"${sponsor.name}" was added to ${sponsor.tier}.`, "ok", "sponsor-notice");
+      }
+
       renderSponsorAdminList();
+      renderPartners();
+      renderHistoryList();
     });
+
+    window.__dacEditSponsor = (id) => {
+      const sponsor = getUserSponsors().find((s) => s.id === id);
+      if (sponsor) enterEditMode(sponsor);
+    };
   }
 
   function renderSponsorAdminList() {
@@ -431,6 +645,9 @@ const DAC = (() => {
           <div class="admin-row-meta">${escapeHtml(s.tier)}</div>
         </div>
         <div class="admin-row-actions">
+          <button class="icon-btn" data-edit-sponsor="${s.id}" title="Edit sponsor" aria-label="Edit sponsor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20h4L18.5 9.5a2 2 0 000-2.8l-1.2-1.2a2 2 0 00-2.8 0L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>
+          </button>
           <button class="icon-btn" data-delete-sponsor="${s.id}" title="Delete sponsor" aria-label="Delete sponsor">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m-8 0l1 13a1 1 0 001 1h6a1 1 0 001-1l1-13"/></svg>
           </button>
@@ -439,12 +656,64 @@ const DAC = (() => {
       )
       .join("");
 
+    list.querySelectorAll("[data-edit-sponsor]").forEach((btn) => {
+      btn.addEventListener("click", () => window.__dacEditSponsor && window.__dacEditSponsor(btn.dataset.editSponsor));
+    });
     list.querySelectorAll("[data-delete-sponsor]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const id = btn.dataset.deleteSponsor;
-        const next = getUserSponsors().filter((s) => s.id !== id);
-        saveUserSponsors(next);
+        const sponsor = getUserSponsors().find((s) => s.id === btn.dataset.deleteSponsor);
+        if (!sponsor) return;
+        if (!confirm(`Delete "${sponsor.name}"? It stays recoverable in the change history below.`)) return;
+        deleteSponsor(sponsor.id);
         renderSponsorAdminList();
+        renderPartners();
+        renderHistoryList();
+      });
+    });
+  }
+
+  /* ---------- admin: change history (create/update/delete, with restore) ---------- */
+  function historyRowHtml(entry) {
+    const actionLabel = {
+      created: "Added",
+      updated: "Edited",
+      deleted: "Deleted",
+      restored: "Restored"
+    }[entry.action] || entry.action;
+
+    const canRestore = entry.action === "deleted";
+
+    return `
+      <div class="admin-row">
+        <div>
+          <div class="admin-row-title">${actionLabel} — ${escapeHtml(entry.title)}</div>
+          <div class="admin-row-meta">${escapeHtml(entry.entityType)} · ${escapeHtml(formatDateTime(entry.timestamp))}</div>
+        </div>
+        <div class="admin-row-actions">
+          ${canRestore ? `<button class="icon-btn" data-restore="${entry.id}" title="Restore" aria-label="Restore">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9a8 8 0 1114 6.5M4 9V4m0 5h5"/></svg>
+          </button>` : ""}
+        </div>
+      </div>`;
+  }
+
+  function renderHistoryList() {
+    const list = document.getElementById("history-list");
+    if (!list) return;
+    const items = getHistory().slice().reverse();
+    if (!items.length) {
+      list.innerHTML = `<div class="admin-empty">No changes yet. Every add, edit, and delete you make will be logged here — deletions can be restored from this list.</div>`;
+      return;
+    }
+    list.innerHTML = items.map(historyRowHtml).join("");
+
+    list.querySelectorAll("[data-restore]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        restoreFromHistory(btn.dataset.restore);
+        renderAdminLists();
+        renderSponsorAdminList();
+        renderPartners();
+        renderHistoryList();
       });
     });
   }
@@ -475,9 +744,10 @@ const DAC = (() => {
     renderRoadmap();
     renderPartners();
     initAdminForm();
-    renderAdminList();
+    renderAdminLists();
     initSponsorForm();
     renderSponsorAdminList();
+    renderHistoryList();
 
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
