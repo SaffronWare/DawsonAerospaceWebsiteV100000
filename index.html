@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DAC — Dawson Aerospace Club</title>
-<meta name="description" content="DAC is a student-run aerospace and robotics engineering team organized into three divisions: Avionics, Formula FRC, and Rocketry.">
+<meta name="description" content="DAC is one of the largest student groups at Dawson College — entirely student-run, working across Avionics, Formula FRC, and Rocketry.">
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,7 +20,6 @@
     </a>
     <nav class="main-nav">
       <a href="#who-we-are">Who We Are</a>
-      <a href="#divisions">Divisions</a>
       <a href="#projects">Projects</a>
       <a href="#partners">Partners</a>
       <a href="#donate">Donate</a>
@@ -38,7 +37,6 @@
   </div>
   <div class="mobile-nav" id="mobile-nav">
     <a href="#who-we-are">Who We Are</a>
-    <a href="#divisions">Divisions</a>
     <a href="#projects">Projects</a>
     <a href="#partners">Partners</a>
     <a href="#donate">Donate</a>
@@ -46,32 +44,24 @@
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
+<!-- ================= HERO — full-viewport photo ================= -->
+<div class="hero-photo" id="hero-photo">
+  <img id="hero-img" alt="Dawson Aerospace Club team photo">
+  <div class="scroll-cue">Scroll
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v15M6 13l6 6 6-6"/></svg>
+  </div>
+  <div class="hero-overlay">
+    <div class="wrap">
       <div class="eyebrow">Dawson College · Student Aerospace &amp; Robotics</div>
-      <h1>Students building flight hardware, rockets, and competition robots — together.</h1>
-      <p class="lede">DAC is one of the largest student groups at Dawson College — entirely student-run, with some adult supervision. We're a community of innovators and builders across three divisions, preparing to take on challenges from the electrification of technology to exploring the cosmos.</p>
+      <h1>One of the largest student groups at Dawson College.</h1>
+      <p>Entirely student-run, with some adult supervision. A community of innovators and builders across Avionics, Formula FRC, and Rocketry.</p>
       <div class="hero-actions">
-        <a href="#divisions" class="btn btn-primary">View Divisions</a>
-        <a href="#projects" class="btn btn-ghost">See Current Projects</a>
-      </div>
-      <div class="readouts">
-        <div class="readout"><div class="val">3</div><div class="lbl">Divisions</div></div>
-        <div class="readout"><div class="val">50+</div><div class="lbl">Members</div></div>
-        <div class="readout"><div class="val">100%</div><div class="lbl">Student-Run</div></div>
-        <div class="readout"><div class="val">Dawson</div><div class="lbl">College</div></div>
-      </div>
-    </div>
-    <div class="hero-diagram" aria-hidden="true">
-      <div class="hero-logo-frame bracket">
-        <div class="tick-tr"></div><div class="tick-bl"></div>
-        <img src="assets/logo.png" alt="DAC — Dawson Aerospace Club logo">
+        <a href="#projects" class="btn btn-primary">See Our Projects</a>
+        <a href="#who-we-are" class="btn btn-ghost">Who We Are</a>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- ================= WHO WE ARE ================= -->
 <section class="section" id="who-we-are">
@@ -104,158 +94,140 @@
         </div>
       </div>
     </div>
-    <div class="motto-block bracket">
-      <div class="tick-tr"></div><div class="tick-bl"></div>
-      <div class="eyebrow">Team Motto</div>
-      <div class="motto-latin">Meis Manibus Astra</div>
-      <div class="motto-en">"With my own hands, to the stars."</div>
-      <p style="margin-top:20px;">It's on the patch because it's the operating principle: nothing on this team gets built, flown, or fielded that a member didn't design, machine, wire, or code themselves.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= DIVISIONS ================= -->
-<section class="section" id="divisions">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Divisions</div>
-      <h2>Three divisions. One shop. One standard.</h2>
-      <p>Every member sits inside one of three technical divisions. Each runs its own project roadmap, but all three share the same review process, tooling, and shop floor.</p>
-    </div>
-
-    <div class="division-grid">
-
-      <!-- Avionics -->
-      <article class="division-card bracket">
+    <div>
+      <div class="photo-slot bracket about-photo" data-photo-slot="who-we-are" data-photo-label="Team / shop photo">
         <div class="tick-tr"></div><div class="tick-bl"></div>
-        <div class="division-top">
-          <div class="division-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="12" height="12" rx="1"/><circle cx="12" cy="12" r="2.4"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2 2M19 5l-2 2M5 19l2-2M19 19l-2-2"/></svg>
-          </div>
-          <div class="division-code">DIV / AV</div>
-        </div>
-        <div>
-          <h3>Avionics</h3>
-          <p>Flight computers, sensors, telemetry, and the embedded software and control systems that fly on everything the club builds.</p>
-        </div>
-        <div>
-          <div class="division-list-label">Example Work</div>
-          <ul class="division-examples" data-division-examples="Avionics"></ul>
-        </div>
-        <div>
-          <div class="division-tags-label">Focus Areas</div>
-          <div class="tag-row">
-            <span class="tag">Embedded Systems</span>
-            <span class="tag">Sensors</span>
-            <span class="tag">Telemetry</span>
-            <span class="tag">Data Logging</span>
-          </div>
-        </div>
-        <a href="#projects" class="btn btn-ghost btn-sm" data-scroll-filter="Avionics">
-          View Avionics Projects
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </article>
-
-      <!-- Formula FRC -->
-      <article class="division-card bracket">
-        <div class="tick-tr"></div><div class="tick-bl"></div>
-        <div class="division-top">
-          <div class="division-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.4M12 18.1v2.4M20.5 12h-2.4M5.9 12H3.5M17.7 6.3l-1.7 1.7M8 16l-1.7 1.7M17.7 17.7L16 16M8 8L6.3 6.3"/></svg>
-          </div>
-          <div class="division-code">DIV / FRC</div>
-        </div>
-        <div>
-          <h3>Formula FRC</h3>
-          <p>Mechanical design, CAD, manufacturing, and controls for competition robots — from drivetrains to manipulators, design through build and test.</p>
-        </div>
-        <div>
-          <div class="division-list-label">Example Work</div>
-          <ul class="division-examples" data-division-examples="Formula FRC"></ul>
-        </div>
-        <div>
-          <div class="division-tags-label">Focus Areas</div>
-          <div class="tag-row">
-            <span class="tag">CAD</span>
-            <span class="tag">Manufacturing</span>
-            <span class="tag">Controls</span>
-            <span class="tag">Mechanical Design</span>
-          </div>
-        </div>
-        <a href="#projects" class="btn btn-ghost btn-sm" data-scroll-filter="Formula FRC">
-          View Formula FRC Projects
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </article>
-
-      <!-- Rocketry -->
-      <article class="division-card bracket">
-        <div class="tick-tr"></div><div class="tick-bl"></div>
-        <div class="division-top">
-          <div class="division-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.5c3 3.2 4.4 7 4.4 11 0 1.7-.5 3.2-1.3 4.4h-6.2c-.8-1.2-1.3-2.7-1.3-4.4 0-4 1.4-7.8 4.4-11z"/><path d="M9 15.5l-3 2.5 1-4M15 15.5l3 2.5-1-4"/><circle cx="12" cy="10" r="1.4"/></svg>
-          </div>
-          <div class="division-code">DIV / RKT</div>
-        </div>
-        <div>
-          <h3>Rocketry</h3>
-          <p>Airframe design, aerodynamics, recovery systems, and simulation, plus propulsion-related research within safe, legal, educational limits.</p>
-        </div>
-        <div>
-          <div class="division-list-label">Example Work</div>
-          <ul class="division-examples" data-division-examples="Rocketry"></ul>
-        </div>
-        <div>
-          <div class="division-tags-label">Focus Areas</div>
-          <div class="tag-row">
-            <span class="tag">Aerodynamics</span>
-            <span class="tag">Recovery Systems</span>
-            <span class="tag">Simulation</span>
-            <span class="tag">Composites</span>
-          </div>
-        </div>
-        <a href="#projects" class="btn btn-ghost btn-sm" data-scroll-filter="Rocketry">
-          View Rocketry Projects
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= CURRENT PROJECTS ================= -->
-<section class="section" id="projects">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Current Projects</div>
-      <h2>What's on the shop floor right now.</h2>
-      <p>Every project below is active: in design, build, or test. Filter by division to see what each team is running this term.</p>
-    </div>
-
-    <div class="projects-toolbar">
-      <div class="filter-group" id="project-filters">
-        <button class="filter-btn active" data-filter="All">All</button>
-        <button class="filter-btn" data-filter="Avionics">Avionics</button>
-        <button class="filter-btn" data-filter="Formula FRC">Formula FRC</button>
-        <button class="filter-btn" data-filter="Rocketry">Rocketry</button>
       </div>
+      <div class="about-photo-caption"><strong>Meis Manibus Astra</strong> — "With my own hands, to the stars."</div>
     </div>
-
-    <div class="project-grid" id="project-grid"></div>
   </div>
 </section>
 
-<!-- ================= FUTURE PROJECTS ================= -->
-<section class="section" id="future-projects">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Future Projects</div>
-      <h2>What's queued up next.</h2>
-      <p>Scoped and approved, not yet in build. Timing is an estimate and moves with parts, funding, and test-range availability.</p>
+<!-- ================= PROJECTS — horizontal division panels ================= -->
+<section id="projects">
+  <div class="division-scroller" id="division-scroller">
+
+    <!-- Avionics -->
+    <article class="division-panel">
+      <div class="panel-header">
+        <div class="wrap">
+          <div class="panel-header-text">
+            <h2>Avionics</h2>
+            <p>Flight computers, sensors, telemetry, and the embedded software and control systems that fly on everything the club builds.</p>
+          </div>
+          <div class="division-code-badge">DIV / AV</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="wrap panel-grid">
+          <div class="panel-text">
+            <div class="panel-current-label">Current Project</div>
+            <h3>Janice — RC Plane Restoration</h3>
+            <p>Our first official project: fully electrifying a gas-powered RC plane named Janice. We're redesigning the nose for a new motor, gutting the interior for new hardware, and building an onboard flight controller from scratch — funded by a SEEDS grant from the Dawson Foundation.</p>
+            <div class="panel-future-block">
+              <div class="panel-future-label">Future Project</div>
+              <h4>To Be Announced</h4>
+              <p>Our next Avionics build is being scoped. Photos land here once it's underway.</p>
+            </div>
+          </div>
+          <div>
+            <div class="panel-photos">
+              <div class="photo-slot bracket" data-photo-slot="avionics-current-1" data-photo-label="Janice — main photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+              <div class="photo-slot bracket" data-photo-slot="avionics-current-2" data-photo-label="Janice — photo 2"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+              <div class="photo-slot bracket" data-photo-slot="avionics-current-3" data-photo-label="Janice — photo 3"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+            </div>
+            <div class="photo-slot bracket panel-photo-future" data-photo-slot="avionics-future-1" data-photo-label="Future Avionics project photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Formula FRC -->
+    <article class="division-panel">
+      <div class="panel-header">
+        <div class="wrap">
+          <div class="panel-header-text">
+            <h2>Formula FRC</h2>
+            <p>Formula SAE-style vehicle engineering and FIRST Robotics Competition robots — mechanical design, CAD, manufacturing, and controls.</p>
+          </div>
+          <div class="division-code-badge">DIV / FRC</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="wrap panel-grid">
+          <div class="panel-text">
+            <div class="panel-current-label">Current Project</div>
+            <h3>FRC — FIRST Robotics Competition</h3>
+            <p>FIRST Robotics Competition is one of the largest STEM competitions in the world, and a strong entry point for new members to gain real engineering experience. We intend for the FRC branch to be run entirely by first-year members, with supervision from our own FRC veterans.</p>
+            <div class="panel-future-block">
+              <div class="panel-future-label">Future Project</div>
+              <h4>FSAE</h4>
+              <p>As the automotive industry electrifies fast, we intend to enter the FSAE competition next year — putting our mechanical engineering technology members' skills toward electrified vehicle design.</p>
+            </div>
+          </div>
+          <div>
+            <div class="panel-photos">
+              <div class="photo-slot bracket" data-photo-slot="formula-frc-current-1" data-photo-label="FRC — main photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+              <div class="photo-slot bracket" data-photo-slot="formula-frc-current-2" data-photo-label="FRC — photo 2"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+              <div class="photo-slot bracket" data-photo-slot="formula-frc-current-3" data-photo-label="FRC — photo 3"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+            </div>
+            <div class="photo-slot bracket panel-photo-future" data-photo-slot="formula-frc-future-1" data-photo-label="FSAE photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Rocketry -->
+    <article class="division-panel">
+      <div class="panel-header">
+        <div class="wrap">
+          <div class="panel-header-text">
+            <h2>Rocketry</h2>
+            <p>Airframe design, aerodynamics, recovery systems, and simulation, plus propulsion-related research within safe, legal, educational limits.</p>
+          </div>
+          <div class="division-code-badge">DIV / RKT</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="wrap panel-grid">
+          <div class="panel-text">
+            <div class="panel-current-label">Current Project</div>
+            <h3>Amateur Rocketry Program</h3>
+            <p>DAC is the primary hub for amateur rocketry at Dawson College. Members work toward CAR/ACF certification, build custom rocket motors, and gain hands-on experience across the field, preparing for Launch Canada Junior next year.</p>
+            <div class="panel-future-block">
+              <div class="panel-future-label">Future Project</div>
+              <h4>Launch Canada</h4>
+              <p>Canada's largest student rocketry competition. We intend to be the first CEGEP students to compete, building an experienced team for Launch Canada Junior as a stepping stone toward a university-level program.</p>
+            </div>
+          </div>
+          <div>
+            <div class="panel-photos">
+              <div class="photo-slot bracket" data-photo-slot="rocketry-current-1" data-photo-label="Rocketry — main photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+              <div class="photo-slot bracket" data-photo-slot="rocketry-current-2" data-photo-label="Rocketry — photo 2"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+              <div class="photo-slot bracket" data-photo-slot="rocketry-current-3" data-photo-label="Rocketry — photo 3"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+            </div>
+            <div class="photo-slot bracket panel-photo-future" data-photo-slot="rocketry-future-1" data-photo-label="Launch Canada photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="division-nav">
+    <div class="division-nav-inner">
+      <button class="division-arrow" id="division-prev" aria-label="Previous division">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="division-dots">
+        <button class="division-dot active" aria-label="Avionics"></button>
+        <button class="division-dot" aria-label="Formula FRC"></button>
+        <button class="division-dot" aria-label="Rocketry"></button>
+      </div>
+      <button class="division-arrow" id="division-next" aria-label="Next division">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
     </div>
-    <div class="roadmap" id="roadmap"></div>
   </div>
 </section>
 
@@ -268,13 +240,22 @@
       <p>Materials, components, machine time, and funding from the organizations below make our build schedule possible.</p>
     </div>
 
-    <div class="partner-tiers">
-      <div>
-        <div class="tier-label">Our Partners</div>
-        <div class="partner-grid" data-tier="any">
-          <div class="partner-slot">Partner Logo</div>
-          <div class="partner-slot">Partner Logo</div>
-        </div>
+    <div class="partner-grid">
+      <div data-sponsor-slot="sponsor-1">
+        <div class="photo-slot bracket partner-photo" data-photo-slot="sponsor-1" data-photo-label="Sponsor Logo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+        <div class="partner-name" data-sponsor-name></div>
+      </div>
+      <div data-sponsor-slot="sponsor-2">
+        <div class="photo-slot bracket partner-photo" data-photo-slot="sponsor-2" data-photo-label="Sponsor Logo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+        <div class="partner-name" data-sponsor-name></div>
+      </div>
+      <div data-sponsor-slot="sponsor-3">
+        <div class="photo-slot bracket partner-photo" data-photo-slot="sponsor-3" data-photo-label="Sponsor Logo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+        <div class="partner-name" data-sponsor-name></div>
+      </div>
+      <div data-sponsor-slot="sponsor-4">
+        <div class="photo-slot bracket partner-photo" data-photo-slot="sponsor-4" data-photo-label="Sponsor Logo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+        <div class="partner-name" data-sponsor-name></div>
       </div>
     </div>
 
@@ -303,12 +284,15 @@
         <li><span class="amt">$500+</span><span class="desc">Covers travel and lodging for a team to attend a launch or competition.</span></li>
       </ul>
     </div>
-    <div class="donate-panel bracket">
-      <div class="tick-tr"></div><div class="tick-bl"></div>
-      <h3>Make a donation</h3>
-      <p>Donations are processed through our university's student organization fund. You'll get a confirmation and, on request, a receipt for your records.</p>
-      <a href="mailto:donate@dac-aero.club?subject=DAC%20Donation%20Inquiry" class="btn btn-primary">Donate by Email Request</a>
-      <p class="form-note">Prefer another method, or a recurring gift? Contact us and we'll set it up.</p>
+    <div>
+      <div class="photo-slot bracket donate-photo" data-photo-slot="donate" data-photo-label="Donate section photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
+      <div class="donate-panel bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <h3>Make a donation</h3>
+        <p>Donations are processed through our university's student organization fund. You'll get a confirmation and, on request, a receipt for your records.</p>
+        <a href="mailto:donate@dac-aero.club?subject=DAC%20Donation%20Inquiry" class="btn btn-primary">Donate by Email Request</a>
+        <p class="form-note">Prefer another method, or a recurring gift? Contact us and we'll set it up.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -331,7 +315,7 @@
         </div>
         <div class="contact-info-item">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0112 2a7 7 0 017 7.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></div>
-          <div><div class="lbl">Shop</div><div class="val">Engineering Annex, Bay 3</div></div>
+          <div><div class="lbl">Campus</div><div class="val">Dawson College</div></div>
         </div>
       </div>
       <div class="social-row">
@@ -379,27 +363,25 @@
         <img src="assets/logo.png" alt="DAC logo">
         <div>
           <div class="brand-text">DAC</div>
-          <p>A student-run aerospace and robotics engineering team across three divisions: Avionics, Formula FRC, and Rocketry.</p>
+          <p>A student-run aerospace and robotics engineering team at Dawson College, across Avionics, Formula FRC, and Rocketry.</p>
         </div>
       </div>
       <div class="footer-col">
         <h4>Site</h4>
         <a href="#who-we-are">Who We Are</a>
-        <a href="#divisions">Divisions</a>
         <a href="#projects">Projects</a>
         <a href="#partners">Partners</a>
-      </div>
-      <div class="footer-col">
-        <h4>Divisions</h4>
-        <a href="#projects" data-scroll-filter="Avionics">Avionics</a>
-        <a href="#projects" data-scroll-filter="Formula FRC">Formula FRC</a>
-        <a href="#projects" data-scroll-filter="Rocketry">Rocketry</a>
       </div>
       <div class="footer-col">
         <h4>Get Involved</h4>
         <a href="#donate">Donate</a>
         <a href="#contact">Contact</a>
         <a href="admin.html">Team Admin</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -409,7 +391,6 @@
   </div>
 </footer>
 
-<script src="js/projects-data.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Team Admin — DAC</title>
+<title>Photo Manager — DAC</title>
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +19,6 @@
     </a>
     <nav class="main-nav">
       <a href="index.html#who-we-are">Who We Are</a>
-      <a href="index.html#divisions">Divisions</a>
       <a href="index.html#projects">Projects</a>
       <a href="index.html#partners">Partners</a>
       <a href="index.html#donate">Donate</a>
@@ -37,7 +36,6 @@
   </div>
   <div class="mobile-nav" id="mobile-nav">
     <a href="index.html#who-we-are">Who We Are</a>
-    <a href="index.html#divisions">Divisions</a>
     <a href="index.html#projects">Projects</a>
     <a href="index.html#partners">Partners</a>
     <a href="index.html#donate">Donate</a>
@@ -48,173 +46,15 @@
 <div class="page-header">
   <div class="wrap">
     <div class="eyebrow">Team Admin</div>
-    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Add or edit a project</h1>
-    <p style="max-width:560px;">Projects added here are saved in this browser and appear immediately on the public Current or Future Projects sections, filterable by division. Use Edit on any row below to update it, or Delete to remove it — deletions stay recoverable in the Change History section.</p>
-  </div>
-</div>
-
-<section class="admin-shell">
-  <div class="wrap admin-grid">
-
-    <form class="admin-panel bracket" id="project-form">
-      <div class="tick-tr"></div><div class="tick-bl"></div>
-
-      <div id="admin-notice" class="notice" style="display:none;"></div>
-
-      <div class="form-row">
-        <label for="p-title">Title *</label>
-        <input id="p-title" name="title" type="text" required placeholder="e.g. RC Plane">
-      </div>
-
-      <div class="form-row">
-        <label for="p-slug">Slug</label>
-        <input id="p-slug" name="slug" type="text" placeholder="auto-generated from title">
-      </div>
-
-      <div class="form-row">
-        <label for="p-description">Short description *</label>
-        <textarea id="p-description" name="description" required placeholder="One or two sentences for the project card." style="min-height:80px;"></textarea>
-      </div>
-
-      <div class="form-row">
-        <label for="p-longDescription">Long description</label>
-        <textarea id="p-longDescription" name="longDescription" placeholder="Optional — more detail for a future project detail page."></textarea>
-      </div>
-
-      <div class="form-row two">
-        <div>
-          <label for="p-division">Division *</label>
-          <select id="p-division" name="division" required>
-            <option value="" disabled selected>Select a division</option>
-            <option value="Avionics">Avionics</option>
-            <option value="Formula FRC">Formula FRC</option>
-            <option value="Rocketry">Rocketry</option>
-            <option value="General">General</option>
-          </select>
-        </div>
-        <div>
-          <label for="p-category">Category *</label>
-          <select id="p-category" name="category" required>
-            <option value="current">Current</option>
-            <option value="future">Future</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-row two">
-        <div>
-          <label for="p-status">Status *</label>
-          <select id="p-status" name="status" required>
-            <option value="Active">Active</option>
-            <option value="Planned">Planned</option>
-            <option value="Complete">Complete</option>
-          </select>
-        </div>
-        <div>
-          <label for="p-tags">Tags</label>
-          <input id="p-tags" name="tags" type="text" placeholder="Comma separated, e.g. CAD, Electronics, Testing">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label for="p-imageFile">Project image (uploads to GitHub)</label>
-        <input id="p-imageFile" name="imageFile" type="file" accept="image/*">
-      </div>
-
-      <div class="form-row">
-        <label for="p-imageUrl">Or paste an image URL instead</label>
-        <input id="p-imageUrl" name="imageUrl" type="text" placeholder="Leave blank if uploading a file above">
-      </div>
-
-      <div class="form-row">
-        <label for="p-gallery">Gallery URLs</label>
-        <input id="p-gallery" name="gallery" type="text" placeholder="Optional — comma separated image URLs">
-      </div>
-
-      <div class="form-row" style="display:flex; gap:12px; align-items:center;">
-        <button type="submit" class="btn btn-primary">Add Project</button>
-        <button type="button" id="project-cancel-edit" class="btn btn-ghost btn-sm" style="display:none;">Cancel Edit</button>
-      </div>
-      <p class="form-note">If you attach a file, it's committed directly into this repo under <code>assets/uploads/projects/</code> via a serverless upload function — the image itself is real and shared with everyone. The rest of the project's details are still stored locally via <code>localStorage</code>, so they'll only show up in this browser until a full backend is connected.</p>
-    </form>
-
-    <div>
-      <div class="notice">Showing projects added from this browser, split into Current and Future/Queued. Seed/demo projects that ship with the site aren't listed here and can't be edited from this page.</div>
-      <div class="division-tags-label" style="margin-top:20px;">Current Projects</div>
-      <div class="admin-list" id="admin-list-current"></div>
-      <div class="division-tags-label" style="margin-top:28px;">Future / Queued Projects</div>
-      <div class="admin-list" id="admin-list-future"></div>
-    </div>
-
-  </div>
-</section>
-
-<div class="page-header">
-  <div class="wrap">
-    <div class="eyebrow">Team Admin</div>
-    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Add or edit a sponsor</h1>
-    <p style="max-width:560px;">Sponsor logos upload to GitHub the same way project images do, then appear live in the Partners section on the homepage. Use Edit to update a sponsor's details or logo.</p>
-  </div>
-</div>
-
-<section class="admin-shell">
-  <div class="wrap admin-grid">
-
-    <form class="admin-panel bracket" id="sponsor-form">
-      <div class="tick-tr"></div><div class="tick-bl"></div>
-
-      <div id="sponsor-notice" class="notice" style="display:none;"></div>
-
-      <div class="form-row">
-        <label for="s-name">Sponsor name *</label>
-        <input id="s-name" name="name" type="text" required placeholder="e.g. Acme Aerospace Supply">
-      </div>
-
-      <div class="form-row">
-        <label for="s-tier">Tier *</label>
-        <select id="s-tier" name="tier" required>
-          <option value="Mission">Mission Partner</option>
-          <option value="Technical">Technical Partner</option>
-          <option value="Supporting">Supporting Partner</option>
-        </select>
-      </div>
-
-      <div class="form-row">
-        <label for="s-link">Website link</label>
-        <input id="s-link" name="link" type="url" placeholder="https://example.com">
-      </div>
-
-      <div class="form-row">
-        <label for="s-logoFile">Logo *</label>
-        <input id="s-logoFile" name="logoFile" type="file" accept="image/*" required>
-      </div>
-
-      <div class="form-row" style="display:flex; gap:12px; align-items:center;">
-        <button type="submit" class="btn btn-primary">Add Sponsor</button>
-        <button type="button" id="sponsor-cancel-edit" class="btn btn-ghost btn-sm" style="display:none;">Cancel Edit</button>
-      </div>
-      <p class="form-note">Logo files are committed into this repo under <code>assets/uploads/sponsors/</code>, so once added they're visible to every visitor — not just this browser. When editing, leave the logo field empty to keep the existing logo. Sponsor name, tier, and link are still stored locally for now.</p>
-    </form>
-
-    <div>
-      <div class="notice">Sponsors added from this browser. Delete removes them from this browser's list and the public site here, but the logo file itself stays in the repo.</div>
-      <div class="admin-list" id="sponsor-list"></div>
-    </div>
-
-  </div>
-</section>
-
-<div class="page-header">
-  <div class="wrap">
-    <div class="eyebrow">Team Admin</div>
-    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Change history</h1>
-    <p style="max-width:560px;">Every add, edit, and delete made from this browser is logged here, most recent first. Deleted projects and sponsors can be restored from this list.</p>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Photo Manager</h1>
+    <p style="max-width:620px;">Upload a photo into any slot below — it's committed straight into this repo on GitHub, so it's visible to everyone right away, not just this browser. Pick a file, click Upload, and the homepage updates instantly.</p>
   </div>
 </div>
 
 <section class="admin-shell">
   <div class="wrap">
-    <div class="admin-list" id="history-list"></div>
+    <div class="notice">The hero photo at the very top of the homepage isn't managed here — add it directly to the repo as <code>assets/photo1.jpg</code> (or <code>assets/photo1.png</code>) and it'll show up automatically.</div>
+    <div id="photo-manager"></div>
   </div>
 </section>
 
@@ -227,7 +67,6 @@
   </div>
 </footer>
 
-<script src="js/projects-data.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
