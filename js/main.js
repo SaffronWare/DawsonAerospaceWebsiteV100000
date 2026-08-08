@@ -49,6 +49,15 @@ const SLOT_REGISTRY = [
     ]
   },
   {
+    group: "Launch Canada",
+    slots: [
+      { id: "launch-canada-1", label: "Rocket Assembly", folder: "projects" },
+      { id: "launch-canada-2", label: "Field Test", folder: "projects" },
+      { id: "launch-canada-3", label: "Launch Pad", folder: "projects" },
+      { id: "launch-canada-future-1", label: "Intercollegiate Challenge", folder: "projects" }
+    ]
+  },
+  {
     group: "Donate",
     slots: [
       { id: "donate", label: "Donate section photo", folder: "site" }
