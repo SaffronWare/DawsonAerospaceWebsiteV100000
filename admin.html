@@ -8,6 +8,98 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<style>
+  /* Local Admin Styles for Authentication & Grid Display */
+  .admin-auth-card {
+    max-width: 480px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+  }
+  .admin-section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #66b2ff;
+  }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .upload-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .upload-card h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.05rem;
+  }
+  .upload-card p {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-bottom: 1rem;
+  }
+  .preview-box {
+    width: 100%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .preview-placeholder {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    font-family: var(--font-mono, monospace);
+  }
+  .file-input {
+    display: none;
+  }
+  .btn-upload {
+    display: inline-block;
+    width: 100%;
+    padding: 0.6rem;
+    text-align: center;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .btn-upload:hover {
+    background: #0052a3;
+  }
+  .status-tag {
+    font-size: 0.75rem;
+    font-family: var(--font-mono, monospace);
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
 
@@ -47,14 +139,380 @@
   <div class="wrap">
     <div class="eyebrow">Team Admin</div>
     <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Photo Manager</h1>
-    <p style="max-width:620px;">Upload a photo into any slot below — it's committed straight into this repo on GitHub, so it's visible to everyone right away, not just this browser. Pick a file, click Upload, and the homepage updates instantly.</p>
+    <p style="max-width:620px;">Upload a photo into any section slot below. Changes are saved directly to your site repo so everyone sees updated images immediately upon upload.</p>
   </div>
 </div>
 
 <section class="admin-shell">
   <div class="wrap">
-    <div class="notice">The hero photo at the very top of the homepage isn't managed here — add it directly to the repo as <code>assets/photo1.jpg</code> (or <code>assets/photo1.png</code>) and it'll show up automatically.</div>
-    <div id="photo-manager"></div>
+    
+    <!-- AUTHENTICATION GATE -->
+    <div id="auth-gate" class="admin-auth-card bracket">
+      <div class="tick-tr"></div><div class="tick-bl"></div>
+      <h3 style="margin-top:0;">Admin Authentication</h3>
+      <p style="font-size: 0.9rem; opacity: 0.8;">Enter your authorization passcode or GitHub Personal Access Token to unlock image management.</p>
+      <div style="margin: 1.25rem 0;">
+        <input type="password" id="admin-passcode" placeholder="Enter Access Code / Token" style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: white; font-family: var(--font-mono, monospace);">
+      </div>
+      <button id="auth-btn" class="btn btn-primary" style="width: 100%;">Unlock Photo Manager</button>
+      <div id="auth-error" style="color: #ff6666; font-size: 0.85rem; margin-top: 0.75rem; display: none;">Invalid credentials. Please try again.</div>
+    </div>
+
+    <!-- MAIN UPLOADER DASHBOARD (Hidden until authenticated) -->
+    <div id="photo-manager" style="display: none;">
+
+      <!-- HERO & ABOUT -->
+      <div class="admin-section-title">01. Hero &amp; Who We Are</div>
+      <div class="photo-grid">
+        <div class="upload-card bracket" data-slot="hero">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Hero Image</h4>
+            <p>Main landing photo (Full-width top cover photo)</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-hero" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-hero').click()">Select Photo</button>
+            <div class="status-tag">Slot: hero</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="who-we-are">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Who We Are</h4>
+            <p>Team / Shop activity photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-who-we-are" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-who-we-are').click()">Select Photo</button>
+            <div class="status-tag">Slot: who-we-are</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVISION 1: AVIONICS -->
+      <div class="admin-section-title">02. Division: Avionics</div>
+      <div class="photo-grid">
+        <div class="upload-card bracket" data-slot="avionics-current-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Janice — Photo 1</h4>
+            <p>Main RC Plane restoration photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-av-1" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-av-1').click()">Select Photo</button>
+            <div class="status-tag">Slot: avionics-current-1</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="avionics-current-2">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Janice — Photo 2</h4>
+            <p>Electronics / Motor assembly photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-av-2" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-av-2').click()">Select Photo</button>
+            <div class="status-tag">Slot: avionics-current-2</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="avionics-current-3">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Janice — Photo 3</h4>
+            <p>Flight controller / bench test</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-av-3" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-av-3').click()">Select Photo</button>
+            <div class="status-tag">Slot: avionics-current-3</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="avionics-future-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Future Avionics Project</h4>
+            <p>Teaser slot for upcoming build</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-av-f" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-av-f').click()">Select Photo</button>
+            <div class="status-tag">Slot: avionics-future-1</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVISION 2: FORMULA SAE -->
+      <div class="admin-section-title">03. Division: Formula SAE</div>
+      <div class="photo-grid">
+        <div class="upload-card bracket" data-slot="formula-frc-current-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Formula SAE — Photo 1</h4>
+            <p>Chassis / Frame design photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-fsae-1" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-fsae-1').click()">Select Photo</button>
+            <div class="status-tag">Slot: formula-frc-current-1</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="formula-frc-current-2">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Formula SAE — Photo 2</h4>
+            <p>CAD model / mechanical render</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-fsae-2" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-fsae-2').click()">Select Photo</button>
+            <div class="status-tag">Slot: formula-frc-current-2</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="formula-frc-current-3">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Formula SAE — Photo 3</h4>
+            <p>Steering &amp; powertrain component</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-fsae-3" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-fsae-3').click()">Select Photo</button>
+            <div class="status-tag">Slot: formula-frc-current-3</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="formula-frc-future-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>FSAE Competition Teaser</h4>
+            <p>Track / racecar prototype preview</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-fsae-f" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-fsae-f').click()">Select Photo</button>
+            <div class="status-tag">Slot: formula-frc-future-1</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVISION 3: ROCKETRY -->
+      <div class="admin-section-title">04. Division: Rocketry</div>
+      <div class="photo-grid">
+        <div class="upload-card bracket" data-slot="rocketry-current-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Amateur Rocketry — Photo 1</h4>
+            <p>Rocket assembly / airframe photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-rkt-1" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-rkt-1').click()">Select Photo</button>
+            <div class="status-tag">Slot: rocketry-current-1</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="rocketry-current-2">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Amateur Rocketry — Photo 2</h4>
+            <p>Motor casing / certification prep</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-rkt-2" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-rkt-2').click()">Select Photo</button>
+            <div class="status-tag">Slot: rocketry-current-2</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="rocketry-current-3">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Amateur Rocketry — Photo 3</h4>
+            <p>Launchpad test / field photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-rkt-3" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-rkt-3').click()">Select Photo</button>
+            <div class="status-tag">Slot: rocketry-current-3</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="rocketry-future-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Launch Canada Junior Teaser</h4>
+            <p>High-altitude rocket preview</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-rkt-f" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-rkt-f').click()">Select Photo</button>
+            <div class="status-tag">Slot: rocketry-future-1</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVISION 4: LAUNCH CANADA -->
+      <div class="admin-section-title">05. Division: Launch Canada</div>
+      <div class="photo-grid">
+        <div class="upload-card bracket" data-slot="launch-canada-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Launch Canada — Rocket Assembly</h4>
+            <p>Team integration build photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-lc-1" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-lc-1').click()">Select Photo</button>
+            <div class="status-tag">Slot: launch-canada-1</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="launch-canada-2">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Launch Canada — Field Test</h4>
+            <p>Recovery / ground test setup</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-lc-2" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-lc-2').click()">Select Photo</button>
+            <div class="status-tag">Slot: launch-canada-2</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="launch-canada-3">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Launch Canada — Launch Pad</h4>
+            <p>Pad setup / countdown photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-lc-3" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-lc-3').click()">Select Photo</button>
+            <div class="status-tag">Slot: launch-canada-3</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="launch-canada-future-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Intercollegiate Challenge</h4>
+            <p>Future competition expansion preview</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-lc-f" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-lc-f').click()">Select Photo</button>
+            <div class="status-tag">Slot: launch-canada-future-1</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPONSORS / PARTNERS -->
+      <div class="admin-section-title">06. Partners &amp; Sponsors</div>
+      <div class="photo-grid">
+        <div class="upload-card bracket" data-slot="sponsor-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Sponsor Logo 1</h4>
+            <p>Partner / Industry sponsor logo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-sp-1" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-sp-1').click()">Select Photo</button>
+            <div class="status-tag">Slot: sponsor-1</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="sponsor-2">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Sponsor Logo 2</h4>
+            <p>Partner / Industry sponsor logo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-sp-2" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-sp-2').click()">Select Photo</button>
+            <div class="status-tag">Slot: sponsor-2</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="sponsor-3">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Sponsor Logo 3</h4>
+            <p>Partner / Industry sponsor logo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-sp-3" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-sp-3').click()">Select Photo</button>
+            <div class="status-tag">Slot: sponsor-3</div>
+          </div>
+        </div>
+
+        <div class="upload-card bracket" data-slot="sponsor-4">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Sponsor Logo 4</h4>
+            <p>Partner / Industry sponsor logo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-sp-4" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-sp-4').click()">Select Photo</button>
+            <div class="status-tag">Slot: sponsor-4</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DONATE SECTION -->
+      <div class="admin-section-title">07. Donate Section</div>
+      <div class="photo-grid">
+        <div class="upload-card bracket" data-slot="donate">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Donate Image</h4>
+            <p>Funding / Community support photo</p>
+            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-donate" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-donate').click()">Select Photo</button>
+            <div class="status-tag">Slot: donate</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
@@ -68,5 +526,37 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script>
+  // Simple authentication trigger & local preview handler
+  document.getElementById('auth-btn').addEventListener('click', function() {
+    const code = document.getElementById('admin-passcode').value.trim();
+    if (code.length > 0) {
+      document.getElementById('auth-gate').style.display = 'none';
+      document.getElementById('photo-manager').style.display = 'block';
+    } else {
+      document.getElementById('auth-error').style.display = 'block';
+    }
+  });
+
+  // Handle local image selection previews for each card
+  document.querySelectorAll('.file-input').forEach(input => {
+    input.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        const card = input.closest('.upload-card');
+        const previewBox = card.querySelector('.preview-box');
+        
+        reader.onload = function(evt) {
+          previewBox.innerHTML = `<img src="${evt.target.result}" alt="Preview">`;
+          const statusTag = card.querySelector('.status-tag');
+          statusTag.textContent = 'Ready to commit!';
+          statusTag.style.color = '#66ff99';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+</script>
 </body>
 </html>
