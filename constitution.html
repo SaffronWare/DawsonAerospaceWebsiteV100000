@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constitution — DAC</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .doc-viewer-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  .doc-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .pdf-frame-container {
+    width: 100%;
+    height: 800px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .pdf-frame-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="DAC logo">
+      <span class="brand-text">DAC<span>Dawson Aerospace Club</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html#who-we-are">Who We Are</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#partners">Partners</a>
+      <a href="constitution.html" class="active">Constitution</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M4.5 12H1.9M22.1 12h-2.6M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.5 14.2A8.5 8.5 0 119.8 3.5a6.8 6.8 0 1010.7 10.7z"/></svg>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html#who-we-are">Who We Are</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#partners">Partners</a>
+    <a href="constitution.html">Constitution</a>
+    <a href="index.html#donate">Donate</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Governance</div>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Club Constitution</h1>
+    <p style="max-width:620px;">Official governance documentation, operational framework, organizational policies, and departmental structures for the Dawson Aerospace Club.</p>
+  </div>
+</div>
+
+<section style="padding: 2rem 0;">
+  <div class="wrap">
+    <div class="doc-viewer-card bracket">
+      <div class="tick-tr"></div><div class="tick-bl"></div>
+      
+      <!-- DIRECT DOWNLOAD BUTTONS -->
+      <div class="doc-actions">
+        <a href="assets/constitution.pdf" download class="btn btn-primary" style="text-decoration:none;">
+          Download PDF
+        </a>
+        <!-- Optional Word Doc Link (if you host the .docx file in assets as well) -->
+        <a href="assets/constitution.docx" download class="btn" style="border: 1px solid rgba(255,255,255,0.2); text-decoration:none;">
+          Download Word Doc (.docx)
+        </a>
+      </div>
+
+      <!-- INTERACTIVE EMBEDDED VIEWER (Works with PDF) -->
+      <div class="pdf-frame-container">
+        <iframe src="assets/constitution.pdf" title="DAC Constitution PDF">
+          <p style="padding:2rem; text-align:center;">Your browser does not support embedded PDFs. Please use the download button above to view the document.</p>
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> DAC — Dawson Aerospace Club</span>
+      <span>Meis Manibus Astra</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
