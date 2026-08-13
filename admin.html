@@ -11,12 +11,39 @@
 <style>
   /* Local Admin Styles for Authentication & Grid Display */
   .admin-auth-card {
-    max-width: 480px;
+    max-width: 520px;
     margin: 2rem auto;
     padding: 2rem;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
+  }
+  .admin-config-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .admin-config-card label {
+    font-size: 0.8rem;
+    font-family: var(--font-mono, monospace);
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .admin-config-card input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: white;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85rem;
   }
   .admin-section-title {
     font-size: 1.4rem;
@@ -93,6 +120,10 @@
   .btn-upload:hover {
     background: #0052a3;
   }
+  .btn-upload:disabled {
+    background: #444;
+    cursor: not-allowed;
+  }
   .status-tag {
     font-size: 0.75rem;
     font-family: var(--font-mono, monospace);
@@ -150,16 +181,37 @@
     <div id="auth-gate" class="admin-auth-card bracket">
       <div class="tick-tr"></div><div class="tick-bl"></div>
       <h3 style="margin-top:0;">Admin Authentication</h3>
-      <p style="font-size: 0.9rem; opacity: 0.8;">Enter your authorization passcode or GitHub Personal Access Token to unlock image management.</p>
+      <p style="font-size: 0.9rem; opacity: 0.8;">Enter your GitHub Personal Access Token (PAT with <code>repo</code> write permissions) to unlock image management.</p>
       <div style="margin: 1.25rem 0;">
-        <input type="password" id="admin-passcode" placeholder="Enter Access Code / Token" style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: white; font-family: var(--font-mono, monospace);">
+        <input type="password" id="admin-passcode" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: white; font-family: var(--font-mono, monospace);">
       </div>
       <button id="auth-btn" class="btn btn-primary" style="width: 100%;">Unlock Photo Manager</button>
-      <div id="auth-error" style="color: #ff6666; font-size: 0.85rem; margin-top: 0.75rem; display: none;">Invalid credentials. Please try again.</div>
+      <div id="auth-error" style="color: #ff6666; font-size: 0.85rem; margin-top: 0.75rem; display: none;">Please provide a valid GitHub token.</div>
     </div>
 
     <!-- MAIN UPLOADER DASHBOARD (Hidden until authenticated) -->
     <div id="photo-manager" style="display: none;">
+
+      <!-- REPO CONFIGURATION -->
+      <div class="admin-config-card bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <div>
+          <label>GitHub Owner / Org</label>
+          <input type="text" id="cfg-owner" value="dawsonaerospace">
+        </div>
+        <div>
+          <label>Repository Name</label>
+          <input type="text" id="cfg-repo" value="dawsonaerospace.github.io">
+        </div>
+        <div>
+          <label>Target Branch</label>
+          <input type="text" id="cfg-branch" value="main">
+        </div>
+        <div>
+          <label>Image Folder Path</label>
+          <input type="text" id="cfg-path" value="assets/slots">
+        </div>
+      </div>
 
       <!-- HERO & ABOUT -->
       <div class="admin-section-title">01. Hero &amp; Who We Are</div>
@@ -169,7 +221,7 @@
           <div>
             <h4>Hero Image</h4>
             <p>Main landing photo (Full-width top cover photo)</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-hero" class="file-input" accept="image/*">
@@ -183,7 +235,7 @@
           <div>
             <h4>Who We Are</h4>
             <p>Team / Shop activity photo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-who-we-are" class="file-input" accept="image/*">
@@ -201,7 +253,7 @@
           <div>
             <h4>Janice — Photo 1</h4>
             <p>Main RC Plane restoration photo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-av-1" class="file-input" accept="image/*">
@@ -215,7 +267,7 @@
           <div>
             <h4>Janice — Photo 2</h4>
             <p>Electronics / Motor assembly photo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-av-2" class="file-input" accept="image/*">
@@ -229,7 +281,7 @@
           <div>
             <h4>Janice — Photo 3</h4>
             <p>Flight controller / bench test</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-av-3" class="file-input" accept="image/*">
@@ -243,7 +295,7 @@
           <div>
             <h4>Future Avionics Project</h4>
             <p>Teaser slot for upcoming build</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-av-f" class="file-input" accept="image/*">
@@ -261,7 +313,7 @@
           <div>
             <h4>Formula SAE — Photo 1</h4>
             <p>Chassis / Frame design photo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-fsae-1" class="file-input" accept="image/*">
@@ -275,7 +327,7 @@
           <div>
             <h4>Formula SAE — Photo 2</h4>
             <p>CAD model / mechanical render</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-fsae-2" class="file-input" accept="image/*">
@@ -289,7 +341,7 @@
           <div>
             <h4>Formula SAE — Photo 3</h4>
             <p>Steering &amp; powertrain component</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-fsae-3" class="file-input" accept="image/*">
@@ -303,7 +355,7 @@
           <div>
             <h4>FSAE Competition Teaser</h4>
             <p>Track / racecar prototype preview</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-fsae-f" class="file-input" accept="image/*">
@@ -321,7 +373,7 @@
           <div>
             <h4>Amateur Rocketry — Photo 1</h4>
             <p>Rocket assembly / airframe photo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-rkt-1" class="file-input" accept="image/*">
@@ -335,7 +387,7 @@
           <div>
             <h4>Amateur Rocketry — Photo 2</h4>
             <p>Motor casing / certification prep</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-rkt-2" class="file-input" accept="image/*">
@@ -349,7 +401,7 @@
           <div>
             <h4>Amateur Rocketry — Photo 3</h4>
             <p>Launchpad test / field photo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-rkt-3" class="file-input" accept="image/*">
@@ -363,7 +415,7 @@
           <div>
             <h4>Launch Canada Junior Teaser</h4>
             <p>High-altitude rocket preview</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-rkt-f" class="file-input" accept="image/*">
@@ -373,65 +425,65 @@
         </div>
       </div>
 
-<!-- DIVISION 4: LAUNCH CANADA -->
-<div class="admin-section-title">05. Division: Launch Canada</div>
-<div class="photo-grid">
-  <div class="upload-card bracket" data-slot="launch-canada-1">
-    <div class="tick-tr"></div><div class="tick-bl"></div>
-    <div>
-      <h4>Launch Canada — Rocket Assembly</h4>
-      <p>Team integration build photo</p>
-      <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
-    </div>
-    <div>
-      <input type="file" id="file-lc-1" class="file-input" accept="image/*">
-      <button class="btn-upload" onclick="document.getElementById('file-lc-1').click()">Select Photo</button>
-      <div class="status-tag">Slot: launch-canada-1</div>
-    </div>
-  </div>
+      <!-- DIVISION 4: LAUNCH CANADA -->
+      <div class="admin-section-title">05. Division: Launch Canada</div>
+      <div class="photo-grid">
+        <div class="upload-card bracket" data-slot="launch-canada-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Launch Canada — Rocket Assembly</h4>
+            <p>Team integration build photo</p>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-lc-1" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-lc-1').click()">Select Photo</button>
+            <div class="status-tag">Slot: launch-canada-1</div>
+          </div>
+        </div>
 
-  <div class="upload-card bracket" data-slot="launch-canada-2">
-    <div class="tick-tr"></div><div class="tick-bl"></div>
-    <div>
-      <h4>Launch Canada — Field Test</h4>
-      <p>Recovery / ground test setup</p>
-      <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
-    </div>
-    <div>
-      <input type="file" id="file-lc-2" class="file-input" accept="image/*">
-      <button class="btn-upload" onclick="document.getElementById('file-lc-2').click()">Select Photo</button>
-      <div class="status-tag">Slot: launch-canada-2</div>
-    </div>
-  </div>
+        <div class="upload-card bracket" data-slot="launch-canada-2">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Launch Canada — Field Test</h4>
+            <p>Recovery / ground test setup</p>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-lc-2" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-lc-2').click()">Select Photo</button>
+            <div class="status-tag">Slot: launch-canada-2</div>
+          </div>
+        </div>
 
-  <div class="upload-card bracket" data-slot="launch-canada-3">
-    <div class="tick-tr"></div><div class="tick-bl"></div>
-    <div>
-      <h4>Launch Canada — Launch Pad</h4>
-      <p>Pad setup / countdown photo</p>
-      <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
-    </div>
-    <div>
-      <input type="file" id="file-lc-3" class="file-input" accept="image/*">
-      <button class="btn-upload" onclick="document.getElementById('file-lc-3').click()">Select Photo</button>
-      <div class="status-tag">Slot: launch-canada-3</div>
-    </div>
-  </div>
+        <div class="upload-card bracket" data-slot="launch-canada-3">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Launch Canada — Launch Pad</h4>
+            <p>Pad setup / countdown photo</p>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-lc-3" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-lc-3').click()">Select Photo</button>
+            <div class="status-tag">Slot: launch-canada-3</div>
+          </div>
+        </div>
 
-  <div class="upload-card bracket" data-slot="launch-canada-future-1">
-    <div class="tick-tr"></div><div class="tick-bl"></div>
-    <div>
-      <h4>Intercollegiate Challenge</h4>
-      <p>Future competition expansion preview</p>
-      <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
-    </div>
-    <div>
-      <input type="file" id="file-lc-f" class="file-input" accept="image/*">
-      <button class="btn-upload" onclick="document.getElementById('file-lc-f').click()">Select Photo</button>
-      <div class="status-tag">Slot: launch-canada-future-1</div>
-    </div>
-  </div>
-</div>
+        <div class="upload-card bracket" data-slot="launch-canada-future-1">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <div>
+            <h4>Intercollegiate Challenge</h4>
+            <p>Future competition expansion preview</p>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
+          </div>
+          <div>
+            <input type="file" id="file-lc-f" class="file-input" accept="image/*">
+            <button class="btn-upload" onclick="document.getElementById('file-lc-f').click()">Select Photo</button>
+            <div class="status-tag">Slot: launch-canada-future-1</div>
+          </div>
+        </div>
+      </div>
 
       <!-- SPONSORS / PARTNERS -->
       <div class="admin-section-title">06. Partners &amp; Sponsors</div>
@@ -441,7 +493,7 @@
           <div>
             <h4>Sponsor Logo 1</h4>
             <p>Partner / Industry sponsor logo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-sp-1" class="file-input" accept="image/*">
@@ -455,7 +507,7 @@
           <div>
             <h4>Sponsor Logo 2</h4>
             <p>Partner / Industry sponsor logo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-sp-2" class="file-input" accept="image/*">
@@ -469,7 +521,7 @@
           <div>
             <h4>Sponsor Logo 3</h4>
             <p>Partner / Industry sponsor logo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-sp-3" class="file-input" accept="image/*">
@@ -483,7 +535,7 @@
           <div>
             <h4>Sponsor Logo 4</h4>
             <p>Partner / Industry sponsor logo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-sp-4" class="file-input" accept="image/*">
@@ -501,7 +553,7 @@
           <div>
             <h4>Donate Image</h4>
             <p>Funding / Community support photo</p>
-            <div class="preview-box"><span class="preview-placeholder">No image set</span></div>
+            <div class="preview-box"><span class="preview-placeholder">Checking repo...</span></div>
           </div>
           <div>
             <input type="file" id="file-donate" class="file-input" accept="image/*">
@@ -527,33 +579,140 @@
 
 <script src="js/main.js"></script>
 <script>
-  // Simple authentication trigger & local preview handler
+  let githubToken = '';
+
+  // Auth unlock trigger
   document.getElementById('auth-btn').addEventListener('click', function() {
     const code = document.getElementById('admin-passcode').value.trim();
     if (code.length > 0) {
+      githubToken = code;
       document.getElementById('auth-gate').style.display = 'none';
       document.getElementById('photo-manager').style.display = 'block';
+      fetchExistingImages();
     } else {
       document.getElementById('auth-error').style.display = 'block';
     }
   });
 
-  // Handle local image selection previews for each card
+  // Get configuration parameters
+  function getConfig() {
+    return {
+      owner: document.getElementById('cfg-owner').value.trim(),
+      repo: document.getElementById('cfg-repo').value.trim(),
+      branch: document.getElementById('cfg-branch').value.trim(),
+      path: document.getElementById('cfg-path').value.trim().replace(/\/$/, '')
+    };
+  }
+
+  // Load existing images from repo on unlock
+  async function fetchExistingImages() {
+    const cfg = getConfig();
+    const cards = document.querySelectorAll('.upload-card');
+
+    for (const card of cards) {
+      const slot = card.dataset.slot;
+      const previewBox = card.querySelector('.preview-box');
+      const filename = `${slot}.jpg`;
+      const url = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.repo}/${cfg.branch}/${cfg.path}/${filename}`;
+
+      const img = new Image();
+      img.onload = () => {
+        previewBox.innerHTML = `<img src="${url}?t=${Date.now()}" alt="${slot}">`;
+      };
+      img.onerror = () => {
+        previewBox.innerHTML = `<span class="preview-placeholder">No image set</span>`;
+      };
+      img.src = url;
+    }
+  }
+
+  // Helper to convert file to Base64
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // Strip data header e.g. "data:image/jpeg;base64,"
+        const base64 = reader.result.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  // Handle local image selection and automatic upload to GitHub API
   document.querySelectorAll('.file-input').forEach(input => {
-    input.addEventListener('change', function(e) {
+    input.addEventListener('change', async function(e) {
       const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        const card = input.closest('.upload-card');
-        const previewBox = card.querySelector('.preview-box');
-        
-        reader.onload = function(evt) {
-          previewBox.innerHTML = `<img src="${evt.target.result}" alt="Preview">`;
-          const statusTag = card.querySelector('.status-tag');
-          statusTag.textContent = 'Ready to commit!';
-          statusTag.style.color = '#66ff99';
+      if (!file) return;
+
+      const card = input.closest('.upload-card');
+      const slot = card.dataset.slot;
+      const previewBox = card.querySelector('.preview-box');
+      const statusTag = card.querySelector('.status-tag');
+      const uploadBtn = card.querySelector('.btn-upload');
+
+      // Update UI for local preview
+      const localUrl = URL.createObjectURL(file);
+      previewBox.innerHTML = `<img src="${localUrl}" alt="Preview">`;
+      statusTag.textContent = 'Uploading to GitHub...';
+      statusTag.style.color = '#ffcc00';
+      uploadBtn.disabled = true;
+
+      try {
+        const cfg = getConfig();
+        const contentBase64 = await fileToBase64(file);
+        const filePath = `${cfg.path}/${slot}.jpg`;
+        const apiUrl = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${filePath}`;
+
+        // Get existing file SHA if updating
+        let sha = null;
+        try {
+          const getRes = await fetch(`${apiUrl}?ref=${cfg.branch}`, {
+            headers: {
+              'Authorization': `token ${githubToken}`,
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          });
+          if (getRes.ok) {
+            const fileData = await getRes.json();
+            sha = fileData.sha;
+          }
+        } catch (e) {
+          // File might not exist yet, proceed without SHA
+        }
+
+        // Commit image to GitHub repository
+        const bodyData = {
+          message: `Update slot photo: ${slot}`,
+          content: contentBase64,
+          branch: cfg.branch
         };
-        reader.readAsDataURL(file);
+        if (sha) bodyData.sha = sha;
+
+        const putRes = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${githubToken}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify(bodyData)
+        });
+
+        if (putRes.ok) {
+          statusTag.textContent = 'Committed & Live!';
+          statusTag.style.color = '#66ff99';
+        } else {
+          const errData = await putRes.json();
+          throw new Error(errData.message || 'Upload failed');
+        }
+      } catch (err) {
+        console.error(err);
+        statusTag.textContent = `Error: ${err.message}`;
+        statusTag.style.color = '#ff6666';
+      } finally {
+        uploadBtn.disabled = false;
       }
     });
   });
