@@ -3,14 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAC — Dawson Aerospace Club</title>
-<meta name="description" content="DAC is one of the largest student groups at Dawson College — entirely student-run, working across Avionics, Formula FRC, and Rocketry.">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo.png">
-<link rel="apple-touch-icon" href="/assets/logo.png">
+<title>Dawson Aerospace Club — DAC</title>
+<link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<style>
+  /* Slot Image Utility & Fallback Styling */
+  .slot-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+  .img-card-frame {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .hero-frame {
+    width: 100%;
+    height: 480px;
+    border-radius: 12px;
+  }
+  .sponsor-frame {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .sponsor-frame img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+</style>
 </head>
 <body>
 
@@ -46,422 +79,231 @@
   </div>
 </header>
 
-<!-- ================= HERO — full-viewport photo ================= -->
-<div class="hero-photo" id="hero-photo">
-  <img id="hero-img" alt="Dawson Aerospace Club team photo">
-  <div class="scroll-cue">Scroll
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v15M6 13l6 6 6-6"/></svg>
-  </div>
-  <div class="hero-overlay">
-    <div class="wrap">
-      <div class="eyebrow">Dawson College · Student Aerospace &amp; Robotics</div>
-      <h1>One of the largest student groups at Dawson College.</h1>
-      <p>With over 50 members, the Dawson Aerospace Club is one of the largest student groups at Dawson College. We are entirely student-run and led with some adult supervision. We aim to create a space where all students from various fields can come together and learn. We're building a community of Innovators and Builders to take on the future's most important challenges. Whether it's the electrification of technology or exploring the cosmos, Dawson students will be prepared to tackle them.</p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-ghost">See Our Projects</a>
-        <a href="#who-we-are" class="btn btn-ghost">Who We Are</a>
-        <a href="#contact" class="btn btn-primary">Join Us</a>
-      </div>
-    </div>
-  </div>
-</div>
-  
-<!-- ================= WHO WE ARE ================= -->
-<section class="section" id="who-we-are">
-  <div class="wrap about-grid">
-    <div>
-      <div class="eyebrow">Who We Are</div>
-      <h2>University-level engineering for CEGEP students</h2>
-      <p>Historically, advanced engineering challenges like Launch Canada and Formula SAE have been dominated by university teams—in fact, no CEGEP has ever competed in either. We are changing that. By bringing these high-level projects to the CEGEP level, we aim to give our members a head start and fast-track their path into the industry.</p>
-      <div class="pillars">
-        <div class="pillar">
-          <div class="pillar-mark">01</div>
-          <div>
-            <h3>Student-run, 50+ members strong</h3>
-            <p>One of the largest student groups at Dawson, led and operated entirely by students with some adult supervision.</p>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-mark">02</div>
-          <div>
-            <h3>A space for every field</h3>
-            <p>We bring together students from all kinds of backgrounds and give them a place to learn hands-on, together.</p>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-mark">03</div>
-          <div>
-            <h3>Building toward the future</h3>
-            <p>A community of innovators and builders preparing to tackle the future's biggest challenges — from electrifying technology to exploring the cosmos.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="photo-slot bracket about-photo" data-photo-slot="who-we-are" data-photo-label="Team / shop photo">
-        <div class="tick-tr"></div><div class="tick-bl"></div>
-      </div>
-      <div class="about-photo-caption"><strong>Meis Manibus Astra</strong> — "With my own hands, to the stars."</div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PROJECTS — horizontal division panels ================= -->
-<section id="projects">
-  <div class="division-scroller" id="division-scroller">
-
-    <!-- 1. Avionics -->
-    <article class="division-panel">
-      <div class="panel-header">
-        <div class="wrap">
-          <div class="panel-header-text">
-            <h2>Avionics</h2>
-            <p>Flight computers, sensors, telemetry, and the embedded software and control systems that fly on everything the club builds.</p>
-          </div>
-          <div class="division-code-badge">DIV / AV</div>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="wrap panel-grid">
-          <div class="panel-text">
-            <div class="panel-current-label">Current Project</div>
-            <h3>Janice — RC Plane Restoration</h3>
-            <p>The first official project of the Dawson Aerospace Club is the restoration of our RC airplane: Janice. Janice was a gas-powered, single-cylinder plane. We decided the best way to get her flying again was to fully electrify her. We applied to The Dawson Foundation and got a SEEDS grant to allow us to purchase the parts we needed. A lot had to go into this project, whether it was redesigning the nose for the new motor, gutting the interior to allow for new hardware or creating an on-board flight controller from scratch.</p>
-            <div class="panel-future-block">
-              <div class="panel-future-label">Future Project</div>
-              <h4>To Be Announced</h4>
-              <p>Our next Avionics build is being scoped. Photos land here once it's underway.</p>
-            </div>
-          </div>
-          <div>
-            <div class="panel-photos">
-              <div class="photo-slot bracket" data-photo-slot="avionics-current-1" data-photo-label="Janice — main photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-              <div class="photo-slot bracket" data-photo-slot="avionics-current-2" data-photo-label="Janice — photo 2"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-              <div class="photo-slot bracket" data-photo-slot="avionics-current-3" data-photo-label="Janice — photo 3"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-            </div>
-            <div class="photo-slot bracket panel-photo-future" data-photo-slot="avionics-future-1" data-photo-label="Future Avionics project photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 2. Formula SAE -->
-    <article class="division-panel">
-      <div class="panel-header">
-        <div class="wrap">
-          <div class="panel-header-text">
-            <h2>Formula SAE</h2>
-            <p>The start of a competition Formula SAE racecar — mechanical design, CAD, manufacturing, and controls.</p>
-          </div>
-          <div class="division-code-badge">DIV / FRC</div>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="wrap panel-grid">
-          <div class="panel-text">
-            <div class="panel-current-label">Current Project</div>
-            <h3>Formula SAE</h3>
-            <p>The world is electrifying fast; nowhere is that more apparent than the automobile industry. 20 years ago, electric cars were a distant idea akin to flying cars; now they are approaching the norm. The Dawson Aerospace Club intends to participate in the FSAE competition next year. Among us are many motivated mechanical engineering techs who have found a practical way to use what they've learned.</p>
-            <div class="panel-future-block">
-              <div class="panel-future-label">Future Project</div>
-              <h4>FSAE competition</h4>
-              <p>Every year the SAE hosts a competition where all FSAE teams compete in various technical categories. Long term, we would like to compete in this competition on behalf of Dawson College, a feat no CEGEP has ever achieved.</p>
-            </div>
-          </div>
-          <div>
-            <div class="panel-photos">
-              <div class="photo-slot bracket" data-photo-slot="formula-frc-current-1" data-photo-label="FRC — main photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-              <div class="photo-slot bracket" data-photo-slot="formula-frc-current-2" data-photo-label="FRC — photo 2"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-              <div class="photo-slot bracket" data-photo-slot="formula-frc-current-3" data-photo-label="FRC — photo 3"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-            </div>
-            <div class="photo-slot bracket panel-photo-future" data-photo-slot="formula-frc-future-1" data-photo-label="FSAE photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 3. Rocketry -->
-    <article class="division-panel">
-      <div class="panel-header">
-        <div class="wrap">
-          <div class="panel-header-text">
-            <h2>Rocketry</h2>
-            <p>Airframe design, aerodynamics, recovery systems, and simulation, plus propulsion-related research within safe, legal, educational limits.</p>
-          </div>
-          <div class="division-code-badge">DIV / RKT</div>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="wrap panel-grid">
-          <div class="panel-text">
-            <div class="panel-current-label">Current Project</div>
-            <h3>Amateur Rocketry Program</h3>
-            <p>The DAC serves as the primary hub for amateur rocketry at Dawson College. Whether you're interested in getting your CAR/ACF certification, learning about rocket motors or just generally interested in the field, this is the place for you. As the barrier to space continues to break down, Canada must have a part in this new industry. Our members continue to learn and gain experience in preparation for Launch Canada Junior next year.</p>
-            <div class="panel-future-block">
-              <div class="panel-future-label">Future Project</div>
-              <h4>Further CAR/ACF certification</h4>
-              <p>Many members are interested in getting up to an L3 certification.  This takes a tremendous amount of time, energy and money.  The DAC will continue to support its members as they grow into experts in their domain.  </p>
-            </div>
-          </div>
-          <div>
-            <div class="panel-photos">
-              <div class="photo-slot bracket" data-photo-slot="rocketry-current-1" data-photo-label="Rocketry — main photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-              <div class="photo-slot bracket" data-photo-slot="rocketry-current-2" data-photo-label="Rocketry — photo 2"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-              <div class="photo-slot bracket" data-photo-slot="rocketry-current-3" data-photo-label="Rocketry — photo 3"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-            </div>
-            <div class="photo-slot bracket panel-photo-future" data-photo-slot="rocketry-future-1" data-photo-label="Launch Canada photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 4. Launch Canada -->
-    <article class="division-panel">
-      <div class="panel-header">
-        <div class="wrap">
-          <div class="panel-header-text">
-            <h2>Launch Canada</h2>
-            <p>The first CEGEP team to compete in Canada's premier intercollegiate rocketry competition.</p>
-          </div>
-          <div class="division-code-badge">DIV / LC</div>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="wrap panel-grid">
-          <div class="panel-text">
-            <div class="panel-current-label">Current Project</div>
-            <h3>Launch Canada Challenge</h3>
-            <p>Launch Canada is the largest student rocketry competition in Canada, and we intend to be the first CEGEP students to compete in it. We are building an experienced team to compete in Launch Canada Junior as a stepping stone toward full university-level high-altitude competition entry.</p>
-            <div class="panel-future-block">
-              <div class="panel-future-label">Future Expansion</div>
-              <h4>Competing in the larger Launch Canada</h4>
-              <p>Launch Canada Junior is a stepping stone to the larger Launch Canada competition. Once we have proven our ability to successfully build and launch a rocket to Launch Canada and Dawson College, we will aim to participate in Launch Canada on the same level as other universities.</p>
-            </div>
-          </div>
-          <div>
-            <div class="panel-photos">
-              <div class="photo-slot bracket" data-photo-slot="launch-canada-1" data-photo-label="Launch Canada — Rocket Assembly"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-              <div class="photo-slot bracket" data-photo-slot="launch-canada-2" data-photo-label="Launch Canada — Field Test"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-              <div class="photo-slot bracket" data-photo-slot="launch-canada-3" data-photo-label="Launch Canada — Launch Pad"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-            </div>
-            <div class="photo-slot bracket panel-photo-future" data-photo-slot="launch-canada-future-1" data-photo-label="Competition Launch photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-  </div>
-
-  <!-- Division Navigation Controls -->
-  <div class="division-nav">
-    <div class="division-nav-inner">
-      <button class="division-arrow" id="division-prev" aria-label="Previous division">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"/></svg>
-      </button>
-      <div class="division-dots">
-        <button class="division-dot active" aria-label="Avionics"></button>
-        <button class="division-dot" aria-label="Formula FRC"></button>
-        <button class="division-dot" aria-label="Rocketry"></button>
-        <button class="division-dot" aria-label="Launch Canada"></button>
-      </div>
-      <button class="division-arrow" id="division-next" aria-label="Next division">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg>
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PARTNERS ================= -->
-<section class="section" id="partners">
+<!-- HERO SECTION -->
+<section class="hero-section">
   <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Partners</div>
-      <h2>Built with the support of our sponsors.</h2>
-      <p>Materials, components, machine time, and funding from the organizations below make our build schedule possible.</p>
-    </div>
-
-    <div class="partner-grid">
-      <div data-sponsor-slot="sponsor-1">
-        <div class="photo-slot bracket partner-photo" data-photo-slot="sponsor-1" data-photo-label="Sponsor Logo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-        <div class="partner-name" data-sponsor-name></div>
-      </div>
-      <div data-sponsor-slot="sponsor-2">
-        <div class="photo-slot bracket partner-photo" data-photo-slot="sponsor-2" data-photo-label="Sponsor Logo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-        <div class="partner-name" data-sponsor-name></div>
-      </div>
-      <div data-sponsor-slot="sponsor-3">
-        <div class="photo-slot bracket partner-photo" data-photo-slot="sponsor-3" data-photo-label="Sponsor Logo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-        <div class="partner-name" data-sponsor-name></div>
-      </div>
-      <div data-sponsor-slot="sponsor-4">
-        <div class="photo-slot bracket partner-photo" data-photo-slot="sponsor-4" data-photo-label="Sponsor Logo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-        <div class="partner-name" data-sponsor-name></div>
-      </div>
-    </div>
-
-    <div class="partner-cta bracket">
-      <div class="tick-tr"></div><div class="tick-bl"></div>
+    <div class="hero-grid" style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem;">
       <div>
-        <h3>Interested in sponsoring DAC?</h3>
-        <p>We put together a sponsorship package covering visibility, hardware access, and reporting for every tier.</p>
+        <div class="eyebrow">Student Engineering &amp; Innovation</div>
+        <h1 style="font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1.1; margin: 0.5rem 0 1.5rem 0;">Meis Manibus Astra</h1>
+        <p style="font-size: 1.15rem; max-width: 680px; opacity: 0.85; line-height: 1.6;">
+          Designing, building, and testing real aerospace hardware—from autonomous drones and Formula SAE race platforms to high-power sounding rockets.
+        </p>
       </div>
-      <a href="#contact" class="btn btn-primary">Request Sponsorship Package</a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= DONATE ================= -->
-<section class="section" id="donate">
-  <div class="wrap donate-grid">
-    <div>
-      <div class="eyebrow">Donate</div>
-      <h2>Support us directly with a donation!</h2>
-      <p>Not every cost fits a sponsorship package. Individual donations cover consumables, travel to competitions, and the small parts that keep a build from stalling.</p>
-    </div>
-    <div>
-      <div class="photo-slot bracket donate-photo" data-photo-slot="donate" data-photo-label="Donate section photo"><div class="tick-tr"></div><div class="tick-bl"></div></div>
-      <div class="donate-panel bracket">
+      <div class="img-card-frame hero-frame bracket">
         <div class="tick-tr"></div><div class="tick-bl"></div>
-        <h3>Make a donation</h3>
-        <p>Donations are processed through our university's student organization fund. You'll get a confirmation and, on request, a receipt for your records.</p>
-        <a href="mailto:dawsonaeroclub@gmail.com?subject=DAC%20Donation%20Inquiry" class="btn btn-primary">Donate by Email Request</a>
-        <p class="form-note">Prefer another method, or a recurring gift? Contact us and we'll set it up.</p>
+        <img src="assets/slots/hero.jpg" alt="Dawson Aerospace Club Hero" class="slot-img" onerror="this.style.display='none'; this.parentElement.style.background='rgba(0,102,204,0.1)'">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= CONTACT ================= -->
-<section class="section" id="contact" style="border-bottom:none;">
+<!-- WHO WE ARE SECTION -->
+<section id="who-we-are" class="section-padding">
   <div class="wrap">
-    <div class="section-head" style="text-align: center; max-width: 700px; margin: 0 auto 3rem auto;">
-      <div class="eyebrow">Contact Us</div>
-      <h2>Get in touch with the team.</h2>
-      <p>Whether you're a prospective member, sponsor, or collaborator, connect with us through any of our official channels below.</p>
+    <div class="section-header">
+      <div class="eyebrow">01. Overview</div>
+      <h2>Who We Are</h2>
     </div>
-
-    <!-- Direct Email & Location Cards -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-      
-      <!-- Primary Club Email Card -->
-      <a href="mailto:dawsonaeroclub@gmail.com" class="bracket" style="display: block; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 2rem; color: inherit; text-decoration: none; transition: all 0.2s ease-in-out;" onmouseover="this.style.borderColor='#0066cc'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.transform='none';">
-        <div class="tick-tr"></div><div class="tick-bl"></div>
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-          <div style="background: rgba(0, 102, 204, 0.2); color: #0066cc; padding: 0.75rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
-          </div>
-          <div>
-            <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; font-weight: 600;">Club Email</div>
-            <div style="font-size: 1.15rem; font-weight: 700; color: #ffffff;">General Inquiries</div>
-          </div>
-        </div>
-        <div style="font-size: 1.1rem; font-family: var(--font-mono, monospace); word-break: break-all; color: #66b2ff;">dawsonaeroclub@gmail.com</div>
-      </a>
-
-      <!-- President Email Card -->
-      <a href="mailto:nicholastirschler@gmail.com" class="bracket" style="display: block; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 2rem; color: inherit; text-decoration: none; transition: all 0.2s ease-in-out;" onmouseover="this.style.borderColor='#0066cc'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.transform='none';">
-        <div class="tick-tr"></div><div class="tick-bl"></div>
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-          <div style="background: rgba(0, 102, 204, 0.2); color: #0066cc; padding: 0.75rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.5 16.9v2.7a1.6 1.6 0 01-1.7 1.6 15.8 15.8 0 01-6.9-2.5 15.6 15.6 0 01-4.8-4.8 15.8 15.8 0 01-2.5-6.9A1.6 1.6 0 016.2 5H8.9a1.6 1.6 0 011.6 1.4c.1.9.3 1.8.6 2.7a1.6 1.6 0 01-.4 1.7L9.6 12a12.7 12.7 0 004.8 4.8l1.2-1.2a1.6 1.6 0 011.7-.4c.9.3 1.8.5 2.7.6a1.6 1.6 0 011.5 1.7z"/></svg>
-          </div>
-          <div>
-            <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; font-weight: 600;">Leadership</div>
-            <div style="font-size: 1.15rem; font-weight: 700; color: #ffffff;">President's Desk</div>
-          </div>
-        </div>
-        <div style="font-size: 1.1rem; font-family: var(--font-mono, monospace); word-break: break-all; color: #66b2ff;">nicholastirschler@gmail.com</div>
-      </a>
-
-      <!-- Campus Location Card -->
-      <div class="bracket" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 2rem;">
-        <div class="tick-tr"></div><div class="tick-bl"></div>
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-          <div style="background: rgba(0, 102, 204, 0.2); color: #0066cc; padding: 0.75rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0112 2a7 7 0 017 7.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-          </div>
-          <div>
-            <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; font-weight: 600;">Location</div>
-            <div style="font-size: 1.15rem; font-weight: 700; color: #ffffff;">Campus Base</div>
-          </div>
-        </div>
-        <div style="font-size: 1.1rem; font-weight: 600; color: #ffffff;">Dawson College, Montreal</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; align-items: center;">
+      <div>
+        <p style="font-size: 1.05rem; line-height: 1.7; opacity: 0.9; margin-bottom: 1.2rem;">
+          The <strong>Dawson Aerospace Club (DAC)</strong> is an interdisciplinary team of collegiate engineers, builders, and researchers dedicated to practical aerospace and mechanical engineering.
+        </p>
+        <p style="font-size: 1.05rem; line-height: 1.7; opacity: 0.9;">
+          We bridge theoretical coursework with hands-on technical execution—enabling students to design flight control avionics, machine precision drivetrains, and launch high-altitude rocket payloads.
+        </p>
       </div>
+      <div class="img-card-frame bracket" style="height: 320px;">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <img src="assets/slots/who-we-are.jpg" alt="DAC Team at Work" class="slot-img" onerror="this.style.display='none'; this.parentElement.style.background='rgba(255,255,255,0.03)'">
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- PROJECTS & DIVISIONS -->
+<section id="projects" class="section-padding" style="background: rgba(0,0,0,0.2);">
+  <div class="wrap">
+    <div class="section-header">
+      <div class="eyebrow">02. Engineering Divisions</div>
+      <h2>Active Projects</h2>
     </div>
 
-    <!-- Prominent Social Media Cards Grid -->
-    <div style="text-align: center; margin-bottom: 1.5rem;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Follow &amp; Join Our Community</h3>
-      <p style="opacity: 0.8;">All major communication is done through instagram, all comunication and planning is done through discord, our codebase is public on github, follow on linkedin for the larp.  </p>
+    <!-- DIVISION 1: AVIONICS -->
+    <div class="division-block" style="margin-bottom: 4rem;">
+      <h3 style="color: #66b2ff; font-size: 1.5rem; margin-bottom: 1rem;">01. Avionics &amp; Unmanned Systems</h3>
+      <p style="max-width: 720px; margin-bottom: 1.5rem; opacity: 0.85;">
+        Focused on embedded electronics, custom flight controller firmware, and fixed-wing UAV restoration—highlighted by our <em>Janice</em> RC plane platform.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/avionics-current-1.jpg" alt="Janice RC Plane" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/avionics-current-2.jpg" alt="Motor Electronics Assembly" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/avionics-current-3.jpg" alt="Bench Testing Flight Controls" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/avionics-future-1.jpg" alt="Future Avionics Concept" class="slot-img" onerror="this.style.display='none'">
+        </div>
+      </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
-      
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/dc_aero_club?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.75rem 1rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: inherit; text-decoration: none; transition: all 0.2s ease-in-out;" onmouseover="this.style.borderColor='#E1306C'; this.style.background='rgba(225, 48, 108, 0.1)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.background='rgba(255, 255, 255, 0.03)'; this.style.transform='none';">
-        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 0.75rem;"><rect x="3" y="3" width="18" height="18" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
-        <span style="font-size: 1.2rem; font-weight: 700;">Instagram</span>
-        <span style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.25rem;">@dc_aero_club</span>
-      </a>
-      
-      <!-- Discord -->
-      <a href="https://discord.gg/kWZ3e8mYua" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.75rem 1rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: inherit; text-decoration: none; transition: all 0.2s ease-in-out;" onmouseover="this.style.borderColor='#5865F2'; this.style.background='rgba(88, 101, 242, 0.1)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.background='rgba(255, 255, 255, 0.03)'; this.style.transform='none';">
-        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 0.75rem;"><path d="M8 5.4C6 5.9 4.6 6.7 4.6 6.7c-1.4 3-1.7 6.2-1.5 9.4 0 0 1.6 1.5 4.4 1.8l.7-1.2c-1.3-.4-2.1-1-2.1-1s.2.1.5.3c0 0 1.7.9 4.4.9s4.4-.9 4.4-.9c.3-.2.5-.3.5-.3s-.8.6-2.1 1l.7 1.2c2.8-.3 4.4-1.8 4.4-1.8.3-3.6-.5-6.8-1.5-9.4 0 0-1.4-1.2-3.8-1.7l-.6 1.1c-2-.4-3.7-.4-5.6 0z"/><circle cx="9" cy="12.3" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="12.3" r="1" fill="currentColor" stroke="none"/></svg>
-        <span style="font-size: 1.2rem; font-weight: 700;">Discord</span>
-        <span style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.25rem;">DAC Server</span>
-      </a>
-      
-      <!-- GitHub -->
-      <a href="https://github.com/SaffronWare/DawsonAerospaceCode" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.75rem 1rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: inherit; text-decoration: none; transition: all 0.2s ease-in-out;" onmouseover="this.style.borderColor='#ffffff'; this.style.background='rgba(255, 255, 255, 0.1)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.background='rgba(255, 255, 255, 0.03)'; this.style.transform='none';">
-        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 0.75rem;"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2-.2 4-1 4-4.5a3.5 3.5 0 00-1-2.5c.3-1 .3-2 0-3 0 0-.8-.3-2.8 1a10 10 0 00-5.4 0C7.3 4.7 6.5 5 6.5 5c-.3 1-.3 2 0 3a3.5 3.5 0 00-1 2.5c0 3.5 2 4.3 4 4.5-.6.6-.5 1-.5 2V21"/></svg>
-        <span style="font-size: 1.2rem; font-weight: 700;">GitHub</span>
-        <span style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.25rem;">DawsonAerospaceCode</span>
-      </a>
+    <!-- DIVISION 2: FORMULA SAE -->
+    <div class="division-block" style="margin-bottom: 4rem;">
+      <h3 style="color: #66b2ff; font-size: 1.5rem; margin-bottom: 1rem;">02. Formula SAE Engineering</h3>
+      <p style="max-width: 720px; margin-bottom: 1.5rem; opacity: 0.85;">
+        Designing high-performance open-wheel racecar components, space-frame structural analysis, and custom powertrain integration.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/formula-frc-current-1.jpg" alt="Chassis Frame Design" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/formula-frc-current-2.jpg" alt="Mechanical CAD Modeling" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/formula-frc-current-3.jpg" alt="Steering Powertrain Assembly" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/formula-frc-future-1.jpg" alt="FSAE Prototype Teaser" class="slot-img" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
 
-      <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/company/dawson-aerospace-club/posts/?feedView=all" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.75rem 1rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: inherit; text-decoration: none; transition: all 0.2s ease-in-out;" onmouseover="this.style.borderColor='#0A66C2'; this.style.background='rgba(10, 102, 194, 0.1)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.background='rgba(255, 255, 255, 0.03)'; this.style.transform='none';">
-        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 0.75rem;"><rect x="3" y="3" width="18" height="18" rx="2.5"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="7" r="0.6" fill="currentColor"/><path d="M11.5 17v-4a2.5 2.5 0 015 0v4"/><line x1="11.5" y1="10" x2="11.5" y2="17"/></svg>
-        <span style="font-size: 1.2rem; font-weight: 700;">LinkedIn</span>
-        <span style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.25rem;">Dawson Aerospace Club</span>
-      </a>
+    <!-- DIVISION 3: ROCKETRY -->
+    <div class="division-block" style="margin-bottom: 4rem;">
+      <h3 style="color: #66b2ff; font-size: 1.5rem; margin-bottom: 1rem;">03. Amateur Rocketry</h3>
+      <p style="max-width: 720px; margin-bottom: 1.5rem; opacity: 0.85;">
+        High-power rocketry certification builds (CAR Level 1 &amp; 2), solid motor casing design, and parachute deployment recovery systems.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/rocketry-current-1.jpg" alt="Airframe Build" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/rocketry-current-2.jpg" alt="Motor Casing Preparation" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/rocketry-current-3.jpg" alt="Launchpad Field Test" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/rocketry-future-1.jpg" alt="High Altitude Teaser" class="slot-img" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
 
+    <!-- DIVISION 4: LAUNCH CANADA -->
+    <div class="division-block">
+      <h3 style="color: #66b2ff; font-size: 1.5rem; margin-bottom: 1rem;">04. Launch Canada</h3>
+      <p style="max-width: 720px; margin-bottom: 1.5rem; opacity: 0.85;">
+        Intercollegiate rocketry challenge development—engineering high-altitude sounding rockets for national competition.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/launch-canada-1.jpg" alt="Integration Assembly" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/launch-canada-2.jpg" alt="Field Test Setup" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/launch-canada-3.jpg" alt="Launch Pad Setup" class="slot-img" onerror="this.style.display='none'">
+        </div>
+        <div class="img-card-frame bracket">
+          <div class="tick-tr"></div><div class="tick-bl"></div>
+          <img src="assets/slots/launch-canada-future-1.jpg" alt="Challenge Preview" class="slot-img" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
 
+  </div>
+</section>
+
+<!-- PARTNERS & SPONSORS -->
+<section id="partners" class="section-padding">
+  <div class="wrap">
+    <div class="section-header">
+      <div class="eyebrow">03. Support</div>
+      <h2>Partners &amp; Sponsors</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+      <div class="img-card-frame sponsor-frame bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <img src="assets/slots/sponsor-1.jpg" alt="Sponsor 1" class="slot-img" onerror="this.parentElement.style.opacity='0.4'">
+      </div>
+      <div class="img-card-frame sponsor-frame bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <img src="assets/slots/sponsor-2.jpg" alt="Sponsor 2" class="slot-img" onerror="this.parentElement.style.opacity='0.4'">
+      </div>
+      <div class="img-card-frame sponsor-frame bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <img src="assets/slots/sponsor-3.jpg" alt="Sponsor 3" class="slot-img" onerror="this.parentElement.style.opacity='0.4'">
+      </div>
+      <div class="img-card-frame sponsor-frame bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <img src="assets/slots/sponsor-4.jpg" alt="Sponsor 4" class="slot-img" onerror="this.parentElement.style.opacity='0.4'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE SECTION -->
+<section id="donate" class="section-padding" style="background: rgba(0,0,0,0.2);">
+  <div class="wrap">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; align-items: center;">
+      <div>
+        <div class="eyebrow">04. Community Impact</div>
+        <h2>Support Our Builds</h2>
+        <p style="font-size: 1.05rem; line-height: 1.7; opacity: 0.9; margin-bottom: 1.5rem;">
+          Your contributions directly fund raw materials, carbon fiber layups, high-power rocket motors, and avionics test benches for student engineers.
+        </p>
+        <a href="#contact" class="btn btn-primary">Get In Touch To Sponsor</a>
+      </div>
+      <div class="img-card-frame bracket" style="height: 300px;">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <img src="assets/slots/donate.jpg" alt="Sponsor Support" class="slot-img" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="section-padding">
+  <div class="wrap">
+    <div class="section-header">
+      <div class="eyebrow">05. Connect</div>
+      <h2>Get In Touch</h2>
+    </div>
+    <div style="max-width: 600px;">
+      <p style="font-size: 1.05rem; line-height: 1.6; opacity: 0.9; margin-bottom: 2rem;">
+        Interested in joining the team, becoming an industry sponsor, or collaborating on engineering projects?
+      </p>
+      <a href="mailto:contact@dawsonaerospace.org" class="btn btn-primary" style="display: inline-block;">Email Dawson Aerospace Club</a>
     </div>
   </div>
 </section>
 
 <footer class="site-footer">
   <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <img src="assets/logo.png" alt="DAC logo">
-        <div>
-          <div class="brand-text">DAC</div>
-          <p>A student-run aerospace and robotics engineering team at Dawson College, across Avionics, Formula FRC, and Rocketry.</p>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Site</h4>
-        <a href="#who-we-are">Who We Are</a>
-        <a href="#projects">Projects</a>
-        <a href="#partners">Partners</a>
-      </div>
-      <div class="footer-col">
-        <h4>Get Involved</h4>
-        <a href="#donate">Donate</a>
-        <a href="#contact">Contact</a>
-        <a href="admin.html">Team Admin</a>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <a href="https://www.instagram.com/dc_aero_club?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" rel="noopener">Instagram</a>
-        <a href="https://www.linkedin.com/company/dawson-aerospace-club/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/SaffronWare/DawsonAerospaceCode" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://discord.gg/kWZ3e8mYua" target="_blank" rel="noopener">Discord</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
+    <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.1); opacity: 0.8; font-family: var(--font-mono, monospace); font-size: 0.85rem;">
       <span>© <span id="year"></span> DAC — Dawson Aerospace Club</span>
       <span>Meis Manibus Astra</span>
     </div>
@@ -469,5 +311,9 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script>
+  // Set copyright year dynamically
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
