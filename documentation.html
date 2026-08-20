@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentation — DAC</title>
+<meta name="description" content="Official documents of the Dawson Aerospace Club, including the club constitution.">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo.png">
+<link rel="apple-touch-icon" href="/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* ===== Documentation page — local styles ===== */
+  .doc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .doc-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+  .doc-card:hover {
+    border-color: #0066cc;
+    transform: translateY(-3px);
+  }
+  .doc-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
+    background: rgba(0, 102, 204, 0.2);
+    color: #0066cc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;
+  }
+  .doc-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 0.6rem 0;
+    color: #ffffff;
+  }
+  .doc-card .doc-desc {
+    font-size: 0.95rem;
+    opacity: 0.75;
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    font-family: var(--font-mono, monospace);
+    opacity: 0.55;
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .doc-card .btn {
+    align-self: flex-start;
+  }
+  .doc-card-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    padding: 2rem;
+    min-height: 220px;
+  }
+  .doc-card-placeholder p {
+    font-size: 0.85rem;
+    opacity: 0.5;
+    font-family: var(--font-mono, monospace);
+    margin: 0.6rem 0 0 0;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="DAC logo">
+      <span class="brand-text">DAC<span>Dawson Aerospace Club</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html#who-we-are">Who We Are</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#partners">Partners</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="documentation.html">Documentation</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M4.5 12H1.9M22.1 12h-2.6M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.5 14.2A8.5 8.5 0 119.8 3.5a6.8 6.8 0 1010.7 10.7z"/></svg>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html#who-we-are">Who We Are</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#partners">Partners</a>
+    <a href="index.html#donate">Donate</a>
+    <a href="documentation.html">Documentation</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Documentation</div>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Club Documents</h1>
+    <p style="max-width:620px;">Governing documents, policies, and reference material for the Dawson Aerospace Club. Everything here is public — members, sponsors, and prospective members are welcome to read through it.</p>
+  </div>
+</div>
+
+<section class="section" style="border-bottom:none;">
+  <div class="wrap">
+
+    <!--
+      ============================================================
+      DOCUMENT CARD TEMPLATE — copy this block to add a new document.
+      1. Swap the <h3> title and the paragraph description.
+      2. Update the .doc-meta line (file type / last updated, etc).
+      3. Point the href at your file, e.g. assets/docs/bylaws.pdf.
+      4. Optionally swap the inline SVG for a different icon.
+      ============================================================
+    -->
+    <div class="doc-grid">
+
+      <!-- Constitution -->
+      <div class="doc-card bracket">
+        <div class="tick-tr"></div><div class="tick-bl"></div>
+        <div class="doc-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l5 5v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 16.5h6M9 9.5h2"/></svg>
+        </div>
+        <h3>Club Constitution</h3>
+        <p class="doc-desc">The founding document of the Dawson Aerospace Club — our mission, membership structure, leadership roles, and how decisions get made. Start here if you want to understand how the club is actually run.</p>
+        <div class="doc-meta">PDF</div>
+        <a href="assets/constitution.pdf" target="_blank" rel="noopener" class="btn btn-primary">View Constitution</a>
+      </div>
+
+      <!-- Placeholder for future documents -->
+      <div class="doc-card-placeholder">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" style="opacity:0.4;"><path d="M12 5v14M5 12h14"/></svg>
+        <p>More documents coming soon<br>(bylaws, safety policy, meeting minutes...)</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="DAC logo">
+        <div>
+          <div class="brand-text">DAC</div>
+          <p>A student-run aerospace and robotics engineering team at Dawson College, across Avionics, Formula FRC, and Rocketry.</p>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="index.html#who-we-are">Who We Are</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#partners">Partners</a>
+        <a href="documentation.html">Documentation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get Involved</h4>
+        <a href="index.html#donate">Donate</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="admin.html">Team Admin</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.instagram.com/dc_aero_club?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" rel="noopener">Instagram</a>
+        <a href="https://www.linkedin.com/company/dawson-aerospace-club/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/SaffronWare/DawsonAerospaceCode" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/kWZ3e8mYua" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> DAC — Dawson Aerospace Club</span>
+      <span>Meis Manibus Astra</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
