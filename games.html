@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Documentation — DAC</title>
-<meta name="description" content="Official documents of the Dawson Aerospace Club, including the club constitution.">
+<title>Games — DAC</title>
+<meta name="description" content="Play games built by Dawson Aerospace Club members, right in your browser.">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/logo.png">
 <link rel="apple-touch-icon" href="/assets/logo.png">
@@ -12,66 +12,80 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <style>
-  /* ===== Documentation page — local styles ===== */
-  .doc-grid {
+  /* ===== Games page — local styles ===== */
+  .game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-top: 2.5rem;
   }
-  .doc-card {
+  .game-card {
     display: flex;
     flex-direction: column;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
-    padding: 2rem;
+    overflow: hidden;
     transition: border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
   }
-  .doc-card:hover {
+  .game-card:hover {
     border-color: #0066cc;
     transform: translateY(-3px);
   }
-  .doc-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 8px;
-    background: rgba(0, 102, 204, 0.2);
-    color: #0066cc;
+  .game-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: rgba(0, 0, 0, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.25rem;
-    flex-shrink: 0;
+    overflow: hidden;
   }
-  .doc-card h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin: 0 0 0.6rem 0;
-    color: #ffffff;
+  .game-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-  .doc-card .doc-desc {
-    font-size: 0.95rem;
-    opacity: 0.75;
-    line-height: 1.55;
-    margin-bottom: 1.5rem;
+  .game-thumb-placeholder {
+    font-size: 0.78rem;
+    font-family: var(--font-mono, monospace);
+    opacity: 0.4;
+  }
+  .game-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
   }
-  .doc-meta {
+  .game-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: #ffffff;
+  }
+  .game-desc {
+    font-size: 0.92rem;
+    opacity: 0.75;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+  .game-meta {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-family: var(--font-mono, monospace);
-    opacity: 0.55;
-    margin-bottom: 1.25rem;
+    opacity: 0.5;
+    margin-bottom: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
-  .doc-card .btn {
+  .game-card .btn {
     align-self: flex-start;
   }
-  .doc-card-placeholder {
+  .game-card-placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,13 +95,73 @@
     border: 1px dashed rgba(255, 255, 255, 0.18);
     border-radius: 12px;
     padding: 2rem;
-    min-height: 220px;
+    min-height: 260px;
   }
-  .doc-card-placeholder p {
+  .game-card-placeholder p {
     font-size: 0.85rem;
     opacity: 0.5;
     font-family: var(--font-mono, monospace);
     margin: 0.6rem 0 0 0;
+  }
+
+  /* Fullscreen play overlay */
+  .game-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .game-overlay.open {
+    display: flex;
+  }
+  .game-overlay-frame-wrap {
+    width: 100%;
+    max-width: 1000px;
+    aspect-ratio: 16 / 10;
+    background: #000;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+    position: relative;
+  }
+  .game-overlay-frame-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+  .game-overlay-close {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+  .game-overlay-close:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .game-overlay-title {
+    position: absolute;
+    top: -3rem;
+    left: 0;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85rem;
+    opacity: 0.7;
+    color: white;
   }
 </style>
 </head>
@@ -131,9 +205,9 @@
 
 <div class="page-header">
   <div class="wrap">
-    <div class="eyebrow">Documentation</div>
-    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Club Documents</h1>
-    <p style="max-width:620px;">Governing documents, policies, and reference material for the Dawson Aerospace Club. Everything here is public — members, sponsors, and prospective members are welcome to read through it.</p>
+    <div class="eyebrow">Games</div>
+    <h1 style="font-size: clamp(1.8rem, 3.4vw, 2.6rem);">Club Arcade</h1>
+    <p style="max-width:620px;">Games built by DAC members using Python and Pygame, compiled to WebAssembly with <a href="https://github.com/pygame-web/pygbag" target="_blank" rel="noopener" style="color:#66b2ff;">pygbag</a> so they run right here in your browser — no install required.</p>
   </div>
 </div>
 
@@ -142,36 +216,48 @@
 
     <!--
       ============================================================
-      DOCUMENT CARD TEMPLATE — copy this block to add a new document.
-      1. Swap the <h3> title and the paragraph description.
-      2. Update the .doc-meta line (file type / last updated, etc).
-      3. Point the href at your file, e.g. assets/docs/bylaws.pdf.
-      4. Optionally swap the inline SVG for a different icon.
+      GAME CARD TEMPLATE — copy this block to add a new game.
+      1. Build your game with pygbag (see README / ask the exec team).
+      2. Copy the pygbag build/web/ output into assets/games/<slug>/.
+      3. Swap the title, description, meta line, and thumbnail image.
+      4. Set data-game-src to assets/games/<slug>/index.html.
+      5. Set data-game-title to whatever should show in the overlay.
       ============================================================
     -->
-    <div class="doc-grid">
+    <div class="game-grid">
 
-      <!-- Constitution -->
-      <div class="doc-card bracket">
-        <div class="tick-tr"></div><div class="tick-bl"></div>
-        <div class="doc-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l5 5v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 16.5h6M9 9.5h2"/></svg>
+      <!-- Example game card (update or remove) -->
+      <div class="game-card">
+        <div class="game-thumb">
+          <!-- Replace with: <img src="assets/games/my-game/thumb.png" alt="My Game"> -->
+          <span class="game-thumb-placeholder">Thumbnail</span>
         </div>
-        <h3>Club Constitution</h3>
-        <p class="doc-desc">The founding document of the Dawson Aerospace Club — our mission, membership structure, leadership roles, and how decisions get made. Start here if you want to understand how the club is actually run.</p>
-        <div class="doc-meta">PDF</div>
-        <a href="assets/constitution.pdf" target="_blank" rel="noopener" class="btn btn-primary">View Constitution</a>
+        <div class="game-card-body">
+          <h3>Untitled Game</h3>
+          <p class="game-desc">A short description of the game goes here — what it is, how to play, who made it.</p>
+          <div class="game-meta">Pygame · WebAssembly</div>
+          <button class="btn btn-primary play-btn" data-game-src="assets/games/my-game/index.html" data-game-title="Untitled Game">Play</button>
+        </div>
       </div>
 
-      <!-- Placeholder for future documents -->
-      <div class="doc-card-placeholder">
+      <!-- Placeholder for future games -->
+      <div class="game-card-placeholder">
         <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" style="opacity:0.4;"><path d="M12 5v14M5 12h14"/></svg>
-        <p>More documents coming soon<br>(bylaws, safety policy, meeting minutes...)</p>
+        <p>More games coming soon</p>
       </div>
 
     </div>
   </div>
 </section>
+
+<!-- Fullscreen play overlay -->
+<div class="game-overlay" id="game-overlay">
+  <div class="game-overlay-frame-wrap">
+    <span class="game-overlay-title" id="game-overlay-title"></span>
+    <button class="game-overlay-close" id="game-overlay-close" aria-label="Close game">&times;</button>
+    <iframe id="game-overlay-frame" src="" allow="autoplay; fullscreen" title="Game"></iframe>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div class="wrap">
@@ -213,5 +299,39 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script>
+  // Open/close the fullscreen game overlay
+  (function () {
+    const overlay = document.getElementById('game-overlay');
+    const frame = document.getElementById('game-overlay-frame');
+    const titleEl = document.getElementById('game-overlay-title');
+    const closeBtn = document.getElementById('game-overlay-close');
+
+    document.querySelectorAll('.play-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const src = btn.getAttribute('data-game-src');
+        const title = btn.getAttribute('data-game-title') || '';
+        frame.src = src;
+        titleEl.textContent = title;
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeOverlay() {
+      overlay.classList.remove('open');
+      frame.src = '';
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeOverlay();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeOverlay();
+    });
+  })();
+</script>
 </body>
 </html>
